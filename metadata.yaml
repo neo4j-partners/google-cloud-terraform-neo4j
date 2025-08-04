@@ -50,7 +50,7 @@ spec:
       - name: source_image
         description: The image name for the disk for the VM instance.
         varType: string
-        defaultValue: projects/launcher-public/global/images/neo4j-enterprise-edition-byol-v20250305
+        defaultValue: projects/neo4j-mp-public/global/images/neo4j-enterprise-edition
       - name: network_name
         description: The network name to attach the VM instance.
         varType: string

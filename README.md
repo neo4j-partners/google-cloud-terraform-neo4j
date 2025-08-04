@@ -89,7 +89,7 @@ The following variables can be configured in your `terraform.tfvars` file:
 | region | GCP Region | us-central1 |
 | zone | GCP Zone | us-central1-a |
 | deployment_name | Deployment name | neo4j |
-| image | The VM image to use for Neo4j instances | projects/launcher-public/global/images/neo4j-enterprise-edition-byol-v20250305 |
+| image | The VM image to use for Neo4j instances | projects/neo4j-mp-public/global/images/neo4j-enterprise-edition |
 | node_count | Number of Neo4j nodes | 3 |
 | machine_type | GCP machine type | c3-standard-4 |
 | disk_size | Data disk size in GB | 100 |
