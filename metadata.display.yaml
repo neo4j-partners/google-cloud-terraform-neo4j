@@ -19,8 +19,8 @@ spec:
           name: source_image
           title: Image version
           enumValueLabels:
-            - label: neo4j-enterprise-edition-byol-v20250305
-              value: projects/launcher-public/global/images/neo4j-enterprise-edition-byol-v20250305
+            - label: neo4j-enterprise-edition
+              value: projects/neo4j-mp-public/global/images/neo4j-enterprise-edition
           xGoogleProperty:
             type: ET_GCE_DISK_IMAGE
         machine_type:

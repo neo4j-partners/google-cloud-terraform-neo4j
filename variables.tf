@@ -34,7 +34,7 @@ variable "goog_cm_deployment_name" {
 variable "source_image" {
   description = "The image name for the disk for the VM instance."
   type        = string
-  default     = "projects/launcher-public/global/images/neo4j-enterprise-edition-byol-v20250305"
+  default     = "projects/neo4j-mp-public/global/images/neo4j-enterprise-edition"
 }
 
 variable "network_name" {
