@@ -1,6 +1,6 @@
-# Neo4j Enterprise Terraform Module for GCP
+# gcp-tf-neo4j
 
-This Terraform module deploys Neo4j Enterprise on Google Cloud Platform (GCP). It supports both standalone and clustered deployments.
+This Terraform module deploys Neo4j Enterprise Edition on Google Cloud Platform (GCP). It supports both standalone and clustered deployments.  This module is listed in Google Cloud Marketplace (GCMP) [here](https://console.cloud.google.com/marketplace/product/neo4j-mp-public/neo4j-enterprise-edition).
 
 ## Features
 
@@ -147,7 +147,3 @@ The test script performs thorough checks to verify:
 - The default machine type (c3-standard-4) is suitable for most workloads, but can be adjusted based on your requirements
 - For large datasets, consider increasing the `disk_size` parameter
 - The startup script includes robust error handling and non-interactive installation to ensure reliable deployment
-
-## License
-
-This module is licensed under the Apache License 2.0. 
