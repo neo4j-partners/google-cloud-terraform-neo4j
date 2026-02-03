@@ -1,0 +1,17 @@
+project_id           = "neo4jbusinessdev"
+region                = "us-central1"
+zone                  = "us-central1-a"
+deployment_name       = "neo4j"
+image                 = "projects/neo4j-mp-public/global/images/neo4j-enterprise-edition"
+network_name          = "neo4j-network"
+subnetwork_name       = "neo4j-subnet"
+create_network        = true
+subnetwork_cidr       = "10.10.10.0/24"
+node_count            = 3
+machine_type          = "c3-standard-4"
+disk_size             = 100
+admin_password        = "foobar123"
+install_bloom         = false
+bloom_license_key     = ""
+firewall_source_range = "0.0.0.0/0"
+license_type          = "enterprise-byol" 
