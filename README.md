@@ -8,7 +8,15 @@ While deployable through the marketplace, it can also be useful to fork and cust
 
 To deploy this template from the command line, follow these instructions.
 
-## Environment Setup
+You can run these modules locally.  However, Google Cloud provides a preconfigured Cloud Shell that is an easier way to get started.  Navigate to the [Cloud Console](https://console.cloud.google.com/) and open the cloud shell in the upper right.
+
+Now let's make a clone of this repo:
+
+    git clone https://github.com/neo4j-partners/google-cloud-terraform-neo4j.git
+
+Set up terraform
+
+    terraform init
 
 1. Ensure your default GCP project is set in gcloud CLI:
 ```bash
