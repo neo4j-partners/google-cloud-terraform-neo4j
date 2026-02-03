@@ -9,8 +9,6 @@ locals {
     external_ip = length(var.external_ips) > i ? element(var.external_ips, i) : "NONE"
     }
   ]
-  metadata = {
-  }
 }
 
 resource "google_compute_instance" "instance" {
@@ -31,17 +29,17 @@ resource "google_compute_instance" "instance" {
   }
 
   metadata = {}
-
-  metadata_startup_script = templatefile("${path.module}/scripts/startup.sh", {
-    node_count        = var.node_count
-    node_index        = count.index + 1
-    admin_password    = var.admin_password
-    install_bloom     = var.install_bloom ? "Yes" : "No"
-    bloom_license_key = var.bloom_license_key
-    deployment_name   = var.deployment_name
-    project_id        = var.project_id
-    license_type      = var.license_type
-  })
+#
+#  metadata_startup_script = templatefile("${path.module}/startup.sh", {
+#    node_count        = var.node_count
+#    node_index        = count.index + 1
+#    admin_password    = var.admin_password
+#    install_bloom     = var.install_bloom ? "Yes" : "No"
+#    bloom_license_key = var.bloom_license_key
+#    deployment_name   = var.deployment_name
+#    project_id        = var.project_id
+#    license_type      = var.license_type
+#  })
 
   dynamic "network_interface" {
     for_each = local.network_interfaces

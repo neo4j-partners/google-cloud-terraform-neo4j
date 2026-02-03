@@ -1,4 +1,4 @@
-project_id           = "neo4jbusinessdev"
+project_id            = "neo4jbusinessdev"
 region                = "us-central1"
 zone                  = "us-central1-a"
 deployment_name       = "neo4j"
