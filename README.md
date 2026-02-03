@@ -8,37 +8,30 @@ While deployable through the marketplace, it can also be useful to fork and cust
 
 To deploy this template from the command line, follow these instructions.
 
+## Deployment
 You can run these modules locally.  However, Google Cloud provides a preconfigured Cloud Shell that is an easier way to get started.  Navigate to the [Cloud Console](https://console.cloud.google.com/) and open the cloud shell in the upper right.
 
 Now let's make a clone of this repo:
 
-    git clone https://github.com/neo4j-partners/google-cloud-terraform-neo4j.git
+  git clone https://github.com/neo4j-partners/google-cloud-terraform-neo4j.git
+  cd google-cloud-terraform-neo4j
 
 Set up terraform
 
-    terraform init
+  terraform init
 
-1. Ensure your default GCP project is set in gcloud CLI:
-```bash
-gcloud config set project YOUR_PROJECT_ID
-```
+Show the plan for the deployment:
 
-2. Copy `terraform.tfvars.example` to `terraform.tfvars` and update the values
+  terraform plan
 
-3. Initialize Terraform:
+If that looks good, you can run apply:
 
-```bash
-terraform init
-```
+  terraform apply
 
-4. Plan the deployment:
+## Deleting your Deployment
+To delete your deployment you can either run:
 
-```bash
-terraform plan
-```
+  terraform detroy
 
-5. Apply the configuration:
-
-```bash
-terraform apply
-```
+## Debugging
+If the Neo4j Browser isn't coming up, there's a good chance something isn't right in your deployment. One thing to investigate is the cloud-init logs. /var/log/cloud-init-output.log is probably the best starting point. If that looks good, the next place to check out is /var/log/neo4j/debug.log.

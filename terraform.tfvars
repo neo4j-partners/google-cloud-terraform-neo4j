@@ -1,4 +1,4 @@
-project_id           = "your-gcp-project-id"
+project_id           = "neo4jbusinessdev"
 region                = "us-central1"
 zone                  = "us-central1-a"
 deployment_name       = "neo4j"
@@ -10,7 +10,7 @@ subnetwork_cidr       = "10.10.10.0/24"
 node_count            = 3
 machine_type          = "c3-standard-4"
 disk_size             = 100
-admin_password        = "YourStrongPasswordHere"
+admin_password        = "foobar123"
 install_bloom         = false
 bloom_license_key     = ""
 firewall_source_range = "0.0.0.0/0"
