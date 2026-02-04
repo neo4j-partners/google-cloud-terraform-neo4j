@@ -13,25 +13,25 @@ You can run these modules locally.  However, Google Cloud provides a preconfigur
 
 Now let's make a clone of this repo:
 
-  git clone https://github.com/neo4j-partners/google-cloud-terraform-neo4j.git
-  cd google-cloud-terraform-neo4j
+    git clone https://github.com/neo4j-partners/google-cloud-terraform-neo4j.git
+    cd google-cloud-terraform-neo4j
 
 Set up terraform
 
-  terraform init
+    terraform init
 
 Show the plan for the deployment:
 
-  terraform plan
+    terraform plan
 
 If that looks good, you can run apply:
 
-  terraform apply
+    terraform apply
 
 ## Deleting your Deployment
 To delete your deployment you can either run:
 
-  terraform detroy
+    terraform detroy
 
 ## Debugging
 If the Neo4j Browser isn't coming up, there's a good chance something isn't right in your deployment. One thing to investigate is the cloud-init logs. /var/log/cloud-init-output.log is probably the best starting point. If that looks good, the next place to check out is /var/log/neo4j/debug.log.
