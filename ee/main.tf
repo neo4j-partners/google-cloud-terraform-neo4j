@@ -29,17 +29,14 @@ resource "google_compute_instance" "neo4j" {
   }
 
   metadata = {}
-#
-#  metadata_startup_script = templatefile("${path.module}/startup.sh", {
-#    node_count        = var.node_count
-#    node_index        = count.index + 1
-#    admin_password    = var.admin_password
-#    install_bloom     = var.install_bloom ? "Yes" : "No"
-#    bloom_license_key = var.bloom_license_key
-#    deployment_name   = var.deployment_name
-#    project_id        = var.project_id
-#    license_type      = var.license_type
-#  })
+
+  metadata_startup_script = templatefile("${path.module}/startup.sh", {
+    password          = var.password
+    node_count        = var.node_count
+    node_index        = count.index + 1
+    deployment_name   = var.deployment_name
+    project_id        = var.project_id
+  })
 
   dynamic "network_interface" {
     for_each = local.network_interfaces
