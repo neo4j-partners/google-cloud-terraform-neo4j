@@ -1,5 +1,4 @@
 provider "google" {
-  project = var.project_id
 }
 
 locals {
@@ -12,9 +11,10 @@ locals {
 }
 
 resource "google_compute_instance" "instance" {
-  name = "${var.goog_cm_deployment_name}-vm"
+  count        = var.node_count
+  name         = "${var.goog_cm_deployment_name}-${count.index + 1}"
   machine_type = var.machine_type
-  zone = var.zone
+  zone         = var.zone
 
   tags = ["${var.goog_cm_deployment_name}-deployment"]
 

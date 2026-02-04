@@ -1,101 +1,10 @@
-variable "region" {
-  description = "The GCP region where resources will be created"
-  type        = string
-}
-
-variable "zone" {
-  description = "The GCP zone where resources will be created"
-  type        = string
-}
-
-variable "deployment_name" {
-  description = "Deployment name"
-  type        = string
-}
-
-variable "source_image" {
-  description = "Base image for the VM instance."
-  type        = string
-}
-
-variable "network_name" {
-  description = "The name of the VPC network to use or create"
-  type        = string
-}
-
-variable "subnetwork_name" {
-  description = "The name of the subnetwork to use or create"
-  type        = string
-}
-
-variable "create_network" {
-  description = "Whether to create a new network or use an existing one"
-  type        = bool
-}
-
-variable "subnetwork_cidr" {
-  description = "CIDR range for the subnetwork"
-  type        = string
-}
-
-variable "node_count" {
-  description = "Number of Neo4j nodes to deploy"
-  type        = number
-  validation {
-    condition     = contains([1, 3, 4, 5, 6, 7], var.node_count)
-    error_message = "Node count must be 1 (standalone) or 3-7 (cluster)."
-  }
-}
-
-variable "machine_type" {
-  description = "GCP machine type for Neo4j nodes"
-  type        = string
-}
-
-
-variable "admin_password" {
-  description = "Password for the Neo4j admin user"
-  type        = string
-  sensitive   = true
-}
-
-variable "install_bloom" {
-  description = "Whether to install Neo4j Bloom"
-  type        = bool
-}
-
-variable "bloom_license_key" {
-  description = "License key for Neo4j Bloom (if installing)"
-  type        = string
-  sensitive   = true
-}
-
-variable "firewall_source_range" {
-  description = "Source IP ranges for external access"
-  type        = string
-}
-
-variable "license_type" {
-  description = "Neo4j license type (enterprise-byol or evaluation)"
-  type        = string
-  validation {
-    condition     = contains(["enterprise-byol", "evaluation"], var.license_type)
-    error_message = "License type must be either 'enterprise-byol' (Bring Your Own License) or 'evaluation'."
-  }
-}
-
-variable "project_id" {
-  description = "The ID of the project in which to provision resources."
-  type        = string
-} 
-
-######## Rewrite
-
 // Marketplace requires this variable name to be declared
 variable "goog_cm_deployment_name" {
   description = "The name of the deployment and VM instance."
   type        = string
 }
+
+#### Network Variables
 
 variable "networks" {
   description = "The network name to attach the VM instance."
@@ -115,8 +24,38 @@ variable "external_ips" {
   default     = ["EPHEMERAL"]
 }
 
+
+#### VM Variables
+
+variable "node_count" {
+  description = "Number of Neo4j instances to deploy"
+  type        = number
+  validation {
+    condition     = contains([1, 3], var.node_count)
+    error_message = "Node count must be 1 or 3."
+  }
+  default = 3
+}
+
+variable "machine_type" {
+  description = "GCP machine type for Neo4j nodes"
+  type        = string
+  default     = "c3-standard-4"
+}
+
+variable "zone" {
+  description = "The GCP zone where resources will be created"
+  type        = string
+}
+
 variable "disk_size" {
   description = "Size of the data disk in GB"
   type        = number
-  default    = 100
+  default     = 100
+}
+
+variable "source_image" {
+  description = "Base image for the VM instance."
+  type        = string
+  default     = "projects/neo4j-mp-public/global/images/neo4j-enterprise-edition"
 }
