@@ -10,7 +10,7 @@ locals {
   ]
 }
 
-resource "google_compute_instance" "instance" {
+resource "google_compute_instance" "neo4j" {
   count        = var.node_count
   name         = "${var.goog_cm_deployment_name}-${count.index + 1}"
   machine_type = var.machine_type
