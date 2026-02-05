@@ -24,7 +24,7 @@ Then you're going to want to set these variables based on what you found above.
 
 Next, create an image for each license:
 
-    LICENSES=(neo4j-enterprise-edition neo4j-community-edition)
+    LICENSES=(neo4j-enterprise-edition-byol neo4j-community-edition-paygo)
     for LICENSE in ${LICENSES[@]}; do
       INSTANCE=${LICENSE}-${IMAGE_VERSION}
       gcloud compute instances create ${INSTANCE} \
