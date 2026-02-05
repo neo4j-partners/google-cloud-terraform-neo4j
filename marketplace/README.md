@@ -25,7 +25,7 @@ Then you're going to want to set these variables based on what you found above.
 Next, create an image for each license:
 
     LICENSES=(neo4j-enterprise-edition neo4j-community-edition)
-    for LICENSE in LICENSES; do
+    for LICENSE in ${LICENSES[@]}; do
       INSTANCE=${LICENSE}-${IMAGE_VERSION}
       gcloud compute instances create ${INSTANCE} \
       --project "neo4j-mp-public" \
@@ -43,8 +43,7 @@ Next, create an image for each license:
 
 Now we're going to delete the VM.  We'll be left with its boot disk.  This command takes a few minutes to run and doesn't print anything.  
 
-    LICENSES=(neo4j-enterprise-edition neo4j-community-edition)
-    for LICENSE in LICENSES; do
+    for LICENSE in ${LICENSES[@]}; do
       INSTANCE=${LICENSE}-${IMAGE_VERSION}
       gcloud compute instances delete ${INSTANCE} \
       --project "neo4j-aura-gcp" \
@@ -53,8 +52,7 @@ Now we're going to delete the VM.  We'll be left with its boot disk.  This comma
 
 We were previously piping yes, but that doesn't seem to be working currently, so you'll have to type "y" a few times.
 
-    LICENSES=(neo4j-enterprise-edition neo4j-community-edition)
-    for LICENSE in LICENSES; do
+    for LICENSE in ${LICENSES[@]}; do
       INSTANCE=${LICENSE}-${IMAGE_VERSION}
       gcloud compute images create ${INSTANCE} \
       --project "neo4j-mp-public" \
