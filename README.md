@@ -2,7 +2,7 @@
 This repo contains Terraform modules that deploy Neo4j on Google Cloud.  There are templates for Enterprise Edition (EE) and Community Edition (CE).  These templates are used in two Google Cloud Marketplace listings:
 
 * [Neo4j Enterprise Edition](https://console.cloud.google.com/marketplace/product/neo4j-mp-public/neo4j-enterprise-edition)
-* Neo4j Community Edition
+* [Neo4j Community Edition](https://console.cloud.google.com/marketplace/product/neo4j-mp-public/neo4j-community-edition)
 
 While deployable through the marketplace, it can also be useful to fork and customize the template to meet your needs.
 
