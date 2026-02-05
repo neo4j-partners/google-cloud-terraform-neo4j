@@ -46,7 +46,7 @@ Now we're going to delete the VM.  We'll be left with its boot disk.  This comma
     for LICENSE in ${LICENSES[@]}; do
       INSTANCE=${LICENSE}-${IMAGE_VERSION}
       gcloud compute instances delete ${INSTANCE} \
-      --project "neo4j-aura-gcp" \
+      --project "neo4j-mp-public" \
       --zone "us-central1-f"
     done
 
