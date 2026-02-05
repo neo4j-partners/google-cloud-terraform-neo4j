@@ -59,3 +59,7 @@ We were previously piping yes, but that doesn't seem to be working currently, so
       --source-disk projects/neo4j-mp-public/zones/us-central1-f/disks/${INSTANCE} \
       --licenses projects/neo4j-mp-public/global/licenses/${LICENSE} \
       --description ADD_DESCRIPTION
+    done
+
+We've orphaned two disks.  Let's clean those up.
+
