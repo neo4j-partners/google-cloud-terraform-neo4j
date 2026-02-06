@@ -1,7 +1,7 @@
 #!/bin/bash
 set -euo pipefail
 
-export admin_password=${admin_password}
+export password=${password}
 export node_count=${node_count}
 
 get_instance_metadata() {
