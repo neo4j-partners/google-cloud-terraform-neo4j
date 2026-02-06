@@ -14,6 +14,11 @@ variable "zones" {
   type        = list(string)
 }
 
+variable "password" {
+  description = "Password for Neo4j"
+  type        = string
+}
+
 variable "node_count" {
   description = "Number of Neo4j instances to deploy"
   type        = number

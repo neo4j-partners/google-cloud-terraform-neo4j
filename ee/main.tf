@@ -19,10 +19,11 @@ resource "google_compute_instance_template" "neo4j" {
   }
 
   metadata_startup_script = templatefile("${path.module}/startup.sh", {
-    password  = "foobar123"
+    password  = var.password
     nodeCount = var.node_count
     loadBalancerIP = google_compute_global_address.neo4j.address
     privateIP = "127.0.0.1"
+    coreMembers = "foo"
   })
 }
 
@@ -135,4 +136,30 @@ resource "google_compute_firewall" "neo4j" {
 
   source_ranges = ["0.0.0.0/0"]
   target_tags   = ["${var.goog_cm_deployment_name}-deployment"]
+}
+
+
+
+
+
+# 1. Reference the regional instance group manager
+data "google_compute_region_instance_group" "my_mig_group" {
+  name    = google_compute_region_instance_group_manager.neo4j.name
+  region  = google_compute_region_instance_group_manager.neo4j.region
+}
+
+# 2. Use a data source for individual instances
+# The 'instances' attribute from the regional instance group data source provides a list of instance URLs.
+data "google_compute_instance" "mig_instances" {
+  for_each = toset(data.google_compute_region_instance_group.my_mig_group.instances)
+  # Extract the instance name from the self_link
+  name     = split("/", each.value)[length(split("/", each.value)) - 1]
+  # Extract the zone from the self_link (MIG instances are zonal even in regional MIG)
+  zone     = split("/", each.value)[length(split("/", each.value)) - 3]
+}
+
+# 3. Output the internal IP addresses
+output "internal_ips" {
+  value = [for instance in data.google_compute_instance.mig_instances : instance.network_interface[0].network_ip]
+  description = "List of internal IP addresses for instances in the MIG"
 }

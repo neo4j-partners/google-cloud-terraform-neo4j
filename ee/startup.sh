@@ -41,20 +41,6 @@ build_neo4j_conf_file() {
   echo "server.metrics.filter=*" >> /etc/neo4j/neo4j.conf
   echo "server.metrics.csv.interval=5s" >> /etc/neo4j/neo4j.conf
   echo "dbms.routing.default_router=SERVER" >> /etc/neo4j/neo4j.conf
-
-  if [[ ${nodeCount} == 1 ]]; then
-    echo "Running on a single node."
-  else
-    echo "Running on multiple nodes.  Configuring membership in neo4j.conf..."
-    sed -i s/#server.cluster.listen_address=:6000/server.cluster.listen_address=0.0.0.0:6000/g /etc/neo4j/neo4j.conf
-    sed -i s/#server.cluster.advertised_address=:6000/server.cluster.advertised_address=\"${privateIP}\":6000/g /etc/neo4j/neo4j.conf
-    sed -i s/#server.cluster.raft.listen_address=:7000/server.cluster.raft.listen_address=0.0.0.0:7000/g /etc/neo4j/neo4j.conf
-    sed -i s/#server.cluster.raft.advertised_address=:7000/server.cluster.raft.advertised_address=\"${privateIP}\":7000/g /etc/neo4j/neo4j.conf
-    sed -i s/#server.routing.listen_address=0.0.0.0:7688/server.routing.listen_address=0.0.0.0:7688/g /etc/neo4j/neo4j.conf
-    sed -i s/#server.routing.advertised_address=:7688/server.routing.advertised_address=\"${privateIP}\":7688/g /etc/neo4j/neo4j.conf
-    sed -i s/#initial.dbms.default_primaries_count=1/initial.dbms.default_primaries_count=3/g /etc/neo4j/neo4j.conf
-    sed -i s/#initial.dbms.default_secondaries_count=0/initial.dbms.default_secondaries_count=$(expr ${nodeCount} - 3)/g /etc/neo4j/neo4j.conf
-    echo "dbms.cluster.minimum_initial_system_primaries_count=${nodeCount}" >> /etc/neo4j/neo4j.conf
 }
 
 add_cypher_ip_blocklist() {
