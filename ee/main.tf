@@ -23,7 +23,7 @@ resource "google_compute_instance_template" "neo4j" {
     nodeCount = var.node_count
     loadBalancerIP = google_compute_global_address.neo4j.address
     privateIP = "127.0.0.1"
-    coreMembers = "foo"
+    coreMembers = [for instance in data.google_compute_instance.mig_instances : instance.network_interface[0].network_ip]
   })
 }
 
@@ -153,10 +153,4 @@ data "google_compute_instance" "mig_instances" {
   for_each = toset(data.google_compute_region_instance_group.my_mig_group.instances)
   name     = split("/", each.value)[length(split("/", each.value)) - 1]
   zone     = split("/", each.value)[length(split("/", each.value)) - 3]
-}
-
-# 3. Output the internal IP addresses
-output "internal_ips" {
-  value = [for instance in data.google_compute_instance.mig_instances : instance.network_interface[0].network_ip]
-  description = "List of internal IP addresses for instances in the MIG"
 }
