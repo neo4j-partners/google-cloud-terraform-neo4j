@@ -45,11 +45,11 @@ build_neo4j_conf_file() {
   local -r privateIP=\"$(hostname -i | awk '{print $NF}')\"
   echo "Configuring network in neo4j.conf..."
   sed -i 's/#server.default_listen_address=0.0.0.0/server.default_listen_address=0.0.0.0/g' /etc/neo4j/neo4j.conf
-  sed -i s/#server.default_advertised_address=localhost/server.default_advertised_address=\"${loadBalancerDNSName}\"/g /etc/neo4j/neo4j.conf
+  sed -i s/#server.default_advertised_address=localhost/server.default_advertised_address="${loadBalancerDNSName}"/g /etc/neo4j/neo4j.conf
   sed -i s/#server.bolt.listen_address=:7687/server.bolt.listen_address=0.0.0.0:7687/g /etc/neo4j/neo4j.conf
-  sed -i s/#server.bolt.advertised_address=:7687/server.bolt.advertised_address=\"${loadBalancerDNSName}\":7687/g /etc/neo4j/neo4j.conf
+  sed -i s/#server.bolt.advertised_address=:7687/server.bolt.advertised_address="${loadBalancerDNSName}":7687/g /etc/neo4j/neo4j.conf
   sed -i s/#server.http.listen_address=:7474/server.http.listen_address=0.0.0.0:7474/g /etc/neo4j/neo4j.conf
-  sed -i s/#server.http.advertised_address=:7474/server.http.advertised_address=\"${loadBalancerDNSName}\":7474/g /etc/neo4j/neo4j.conf
+  sed -i s/#server.http.advertised_address=:7474/server.http.advertised_address="${loadBalancerDNSName}":7474/g /etc/neo4j/neo4j.conf
   neo4j-admin server memory-recommendation >> /etc/neo4j/neo4j.conf
   echo "server.metrics.enabled=true\" >> /etc/neo4j/neo4j.conf
   echo "server.metrics.jmx.enabled=true\" >> /etc/neo4j/neo4j.conf
