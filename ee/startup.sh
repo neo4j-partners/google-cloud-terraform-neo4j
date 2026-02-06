@@ -2,10 +2,10 @@
 set -euo pipefail
 
 echo Running startup script...
-echo password: $password
-echo nodeCount: $nodeCount
-echo loadBalancerIP: $loadBalancerIP
-echo privateIP: $privateIP
+echo "password: $password"
+echo "nodeCount: $nodeCount"
+echo "loadBalancerIP: $loadBalancerIP"
+echo "privateIP: $privateIP"
 
 
 
