@@ -77,7 +77,7 @@ build_neo4j_conf_file() {
     TOKEN=$(curl -X PUT \"http://169.254.169.254/latest/api/token\" -H \"X-aws-ec2-metadata-token-ttl-seconds: 21600\")
     instanceId=$(curl -H \"X-aws-ec2-metadata-token: $TOKEN\" -s http://169.254.169.254/latest/meta-data/instance-id)
     if [[ ${#instanceId} -eq 0 ]]; then
-     echo \"Missing instance Id. Exiting!! \"
+      echo "Missing instance ID. Exiting."
     fi
     coreMembers=$(aws autoscaling describe-auto-scaling-instances --region $region --output text --query \"AutoScalingInstances[?contains(AutoScalingGroupName,'$stackName-Neo4jAutoScalingGroup')].[InstanceId]\" | xargs -n1 -I {} aws ec2 describe-instances --instance-ids {} --region $region --query \"Reservations[].Instances[].PrivateIpAddress\" --output text --filter \"Name=tag:aws:cloudformation:stack-name,Values=$stackName\")
 
