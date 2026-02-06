@@ -50,17 +50,6 @@ resource "google_compute_instance_template" "neo4j" {
   }
 }
 
-resource "google_compute_health_check" "neo4j" {
-  name               = "${var.goog_cm_deployment_name}-health-check"
-  check_interval_sec = 10
-  timeout_sec        = 5
-
-  http_health_check {
-    port = "7474"
-    request_path = "/"
-  }
-}
-
 resource "google_compute_instance_group_manager" "neo4j" {
   name             = "${var.goog_cm_deployment_name}-mig"
   base_instance_name = var.goog_cm_deployment_name
@@ -87,6 +76,17 @@ resource "google_compute_instance_group_manager" "neo4j" {
   }
 }
 
+resource "google_compute_health_check" "neo4j" {
+  name               = "${var.goog_cm_deployment_name}-health-check"
+  check_interval_sec = 10
+  timeout_sec        = 5
+
+  http_health_check {
+    port = "7474"
+    request_path = "/"
+  }
+}
+
 resource "google_compute_backend_service" "neo4j_http" {
   name             = "${var.goog_cm_deployment_name}-backend-http"
   protocol         = "HTTP"
@@ -102,16 +102,6 @@ resource "google_compute_backend_service" "neo4j_http" {
   }
 
   health_checks = [google_compute_health_check.neo4j.id]
-}
-
-resource "google_compute_url_map" "neo4j_http" {
-  name            = "${var.goog_cm_deployment_name}-url-map-http"
-  default_service = google_compute_backend_service.neo4j_http.id
-}
-
-resource "google_compute_target_http_proxy" "neo4j" {
-  name            = "${var.goog_cm_deployment_name}-http-proxy"
-  url_map         = google_compute_url_map.neo4j_http.id
 }
 
 resource "google_compute_backend_service" "neo4j_bolt" {
@@ -130,8 +120,28 @@ resource "google_compute_backend_service" "neo4j_bolt" {
   health_checks = [google_compute_health_check.neo4j.id]
 }
 
+resource "google_compute_url_map" "neo4j_http" {
+  name            = "${var.goog_cm_deployment_name}-url-map-http"
+  default_service = google_compute_backend_service.neo4j_http.id
+}
+
+resource "google_compute_target_http_proxy" "neo4j" {
+  name            = "${var.goog_cm_deployment_name}-http-proxy"
+  url_map         = google_compute_url_map.neo4j_http.id
+}
+
+resource "google_compute_target_tcp_proxy" "neo4j_bolt" {
+  name            = "${var.goog_cm_deployment_name}-tcp-proxy-bolt"
+  backend_service = google_compute_backend_service.neo4j_bolt.id
+}
+
 resource "google_compute_global_address" "neo4j_http" {
   name = "${var.goog_cm_deployment_name}-http-ip"
+}
+
+resource "google_compute_address" "neo4j_bolt" {
+  name         = "${var.goog_cm_deployment_name}-bolt-ip"
+  region       = var.region
 }
 
 resource "google_compute_global_forwarding_rule" "neo4j_http" {
@@ -143,16 +153,6 @@ resource "google_compute_global_forwarding_rule" "neo4j_http" {
   ip_address            = google_compute_global_address.neo4j_http.id
 }
 
-resource "google_compute_address" "neo4j_bolt" {
-  name         = "${var.goog_cm_deployment_name}-bolt-ip"
-  region       = var.region
-}
-
-resource "google_compute_target_tcp_proxy" "neo4j_bolt" {
-  name            = "${var.goog_cm_deployment_name}-tcp-proxy-bolt"
-  backend_service = google_compute_backend_service.neo4j_bolt.id
-}
-
 resource "google_compute_forwarding_rule" "neo4j_bolt" {
   name                  = "${var.goog_cm_deployment_name}-forwarding-rule-bolt"
   ip_protocol           = "TCP"
@@ -162,5 +162,3 @@ resource "google_compute_forwarding_rule" "neo4j_bolt" {
   ip_address            = google_compute_address.neo4j_bolt.id
   region                = var.region
 }
-
-data "google_client_config" "current" {}
