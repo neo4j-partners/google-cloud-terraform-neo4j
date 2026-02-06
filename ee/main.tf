@@ -25,13 +25,10 @@ resource "google_compute_instance_template" "neo4j" {
     disk_type    = "pd-ssd"
   }
 
-  metadata_startup_script = templatefile("${path.module}/startup.sh", {
-    password   = "foobar123"
-    nodeCount = var.node_count
-    loadBalancerDNSName = "${google_compute_global_address.neo4j_http.address}"
-    privateIP = "${google_compute_instance_template.neo4j.network_interface.0.network_ip}"
-    instanceId = "${google_compute_instance_template.neo4j.id}"
-  })
+#  metadata_startup_script = templatefile("${path.module}/startup.sh", {
+#    password   = "foobar123"
+#    nodeCount = var.node_count
+#  })
 
   dynamic "network_interface" {
     for_each = local.network_interfaces
