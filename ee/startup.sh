@@ -81,7 +81,7 @@ build_neo4j_conf_file() {
     fi
 #    coreMembers=$(aws autoscaling describe-auto-scaling-instances --region $region --output text --query "AutoScalingInstances[?contains(AutoScalingGroupName,'$stackName-Neo4jAutoScalingGroup')].[InstanceId]" | xargs -n1 -I {} aws ec2 describe-instances --instance-ids {} --region $region --query "Reservations[].Instances[].PrivateIpAddress" --output text --filter "Name=tag:aws:cloudformation:stack-name,Values=$stackName")
 
-    if [[ ${#coreMembers} -eq 0 ]]; then
+    if [[ ${coreMembers} -eq 0 ]]; then
      echo "Missing coreMembers. Exiting!!!"
     fi
     echo "CoreMembers = ${coreMembers}"
