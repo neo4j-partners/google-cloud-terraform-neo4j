@@ -60,6 +60,6 @@ variable "disk_size" {
 variable "source_image" {
   description = "Base image for the VM instance."
   type        = string
-  default     = "projects/rhel-cloud/global/images/rehl-9-v20260114"
+  default     = "projects/rhel-cloud/global/images/rhel-9-v20260114"
   #default     = "projects/neo4j-mp-public/global/images/neo4j-enterprise-edition"
 }
