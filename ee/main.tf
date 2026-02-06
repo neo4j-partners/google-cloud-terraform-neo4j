@@ -137,7 +137,7 @@ resource "google_compute_global_forwarding_rule" "neo4j_bolt" {
 
 resource "google_compute_firewall" "neo4j_http" {
   name    = "${var.goog_cm_deployment_name}-allow-http"
-  network = var.networks[0]
+  network = "default"
 
   allow {
     protocol = "tcp"
@@ -150,7 +150,7 @@ resource "google_compute_firewall" "neo4j_http" {
 
 resource "google_compute_firewall" "neo4j_bolt" {
   name    = "${var.goog_cm_deployment_name}-allow-bolt"
-  network = var.networks[0]
+  network = "default"
 
   allow {
     protocol = "tcp"

@@ -5,5 +5,5 @@ output "neo4j_http_url" {
 
 output "neo4j_bolt_endpoint" {
   description = "Bolt endpoint for Neo4j connections via load balancer"
-  value       = "bolt://${google_compute_address.neo4j_bolt.address}:7687"
+  value       = "bolt://${google_compute_global_address.neo4j_bolt.address}:7687"
 }
