@@ -8,6 +8,9 @@ While deployable through the marketplace, it can also be useful to fork and cust
 
 To deploy this template from the command line, follow these instructions.
 
+## Architecture
+These templates deploy an instance group with a load balancer in front of it.
+
 ## Deployment
 You can run these modules locally.  However, Google Cloud provides a preconfigured Cloud Shell that is an easier way to get started.  Navigate to the [Cloud Console](https://console.cloud.google.com/) and open the cloud shell in the upper right.
 
