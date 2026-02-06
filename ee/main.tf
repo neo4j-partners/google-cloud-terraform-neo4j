@@ -149,12 +149,9 @@ data "google_compute_region_instance_group" "my_mig_group" {
 }
 
 # 2. Use a data source for individual instances
-# The 'instances' attribute from the regional instance group data source provides a list of instance URLs.
 data "google_compute_instance" "mig_instances" {
   for_each = toset(data.google_compute_region_instance_group.my_mig_group.instances)
-  # Extract the instance name from the self_link
   name     = split("/", each.value)[length(split("/", each.value)) - 1]
-  # Extract the zone from the self_link (MIG instances are zonal even in regional MIG)
   zone     = split("/", each.value)[length(split("/", each.value)) - 3]
 }
 
