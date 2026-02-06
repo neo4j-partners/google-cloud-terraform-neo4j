@@ -70,7 +70,7 @@ resource "google_compute_backend_service" "neo4j_http" {
   enable_cdn       = false
 
   backend {
-    group          = google_compute_instance_group_manager.neo4j.instance_group
+    group          = google_compute_region_instance_group_manager.neo4j.instance_group
     balancing_mode = "RATE"
     max_rate_per_instance = 1000
   }
@@ -86,7 +86,7 @@ resource "google_compute_backend_service" "neo4j_bolt" {
   load_balancing_scheme = "EXTERNAL"
 
   backend {
-    group          = google_compute_instance_group_manager.neo4j.instance_group
+    group          = google_compute_region_instance_group_manager.neo4j.instance_group
     balancing_mode = "CONNECTION"
     max_connections_per_instance = 1000
   }
