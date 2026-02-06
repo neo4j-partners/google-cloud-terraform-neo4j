@@ -49,7 +49,11 @@ add_cypher_ip_blocklist() {
 
 start_neo4j() {
   echo "Starting Neo4j..."
-  service neo4j start
+
+  # service neo4j start
+  # The service wrapper is failing.  Instead, let's try starting directly.
+  /usr/bin/neo4j start
+
   neo4j-admin dbms set-initial-password "${password}"
 }
 
