@@ -24,8 +24,8 @@ extension_config() {
   echo "dbms.security.procedures.allowlist=apoc.*,gds.*,bloom.*" >> /etc/neo4j/neo4j.conf
 }
 
-build_neo4j_conf_file() {s
-  local -r privateIP=\"$(hostname -i | awk '{print $NF}')\"
+build_neo4j_conf_file() {
+  local -r privateIP="$(hostname -i | awk '{print $NF}')"
 
   echo "Configuring network in neo4j.conf..."
   sed -i s/#server.default_listen_address=0.0.0.0/server.default_listen_address=0.0.0.0/g /etc/neo4j/neo4j.conf
