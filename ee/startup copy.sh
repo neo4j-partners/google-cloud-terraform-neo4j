@@ -74,6 +74,19 @@ build_neo4j_conf_file() {
     echo "CoreMembers = ${coreMembers}"
     coreMembers=$(echo ${coreMembers} | sed 's/ /:6000,/g')
     coreMembers=$(echo "${coreMembers}"):6000
+
+
+
+  local COREMEMBERS=""
+  local INSTANCES=$(gcloud compute instance-groups list-instances neo4j-deployment-mig --region us-central1 --format="value(NAME)")
+  for INSTANCE in $INSTANCES; do
+    COREMEMBERS+=$(gcloud compute instances list --format="value(networkInterfaces[0].networkIP)" --filter="name=( '$INSTANCE' )")
+    COREMEMBERS+=":6000,"
+  done
+  COREMEMBERS="$${COREMEMBERS%?}"
+  echo $COREMEMBERS
+
+
     echo "dbms.cluster.discovery.resolver_type=LIST" >> /etc/neo4j/neo4j.conf
     echo "dbms.cluster.endpoints=${coreMembers}" >> /etc/neo4j/neo4j.conf
   fi
