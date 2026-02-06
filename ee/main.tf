@@ -58,7 +58,7 @@ resource "google_compute_health_check" "neo4j" {
 
 resource "google_compute_backend_service" "neo4j_http" {
   name             = "${var.goog_cm_deployment_name}-backend-http"
-  protocol         = "HTTP"
+  protocol         = "TCP"
   port_name        = "neo4j-http"
   timeout_sec      = 30
   load_balancing_scheme = "EXTERNAL"
@@ -66,8 +66,8 @@ resource "google_compute_backend_service" "neo4j_http" {
 
   backend {
     group          = google_compute_region_instance_group_manager.neo4j.instance_group
-    balancing_mode = "RATE"
-    max_rate_per_instance = 1000
+    balancing_mode = "CONNECTION"
+    max_connections_per_instance = 1000
   }
 
   health_checks = [google_compute_health_check.neo4j.id]
