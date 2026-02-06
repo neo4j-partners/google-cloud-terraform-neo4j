@@ -80,8 +80,8 @@ build_neo4j_conf_file
 
 
 
-local COREMEMBERS=""
-local INSTANCES=$(gcloud compute instance-groups list-instances neo4j-deployment-mig --region us-central1 --format="value(NAME)")
+COREMEMBERS=""
+INSTANCES=$(gcloud compute instance-groups list-instances neo4j-deployment-mig --region us-central1 --format="value(NAME)")
 for INSTANCE in $INSTANCES; do
   COREMEMBERS+=$(gcloud compute instances list --format="value(networkInterfaces[0].networkIP)" --filter="name=( '$INSTANCE' )")
   COREMEMBERS+=":6000,"
