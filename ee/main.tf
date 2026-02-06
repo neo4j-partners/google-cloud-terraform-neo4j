@@ -113,9 +113,8 @@ resource "google_compute_global_address" "neo4j_http" {
   name = "${var.goog_cm_deployment_name}-http-ip"
 }
 
-resource "google_compute_address" "neo4j_bolt" {
-  name         = "${var.goog_cm_deployment_name}-bolt-ip"
-  region       = var.region
+resource "google_compute_global_address" "neo4j_bolt" {
+  name = "${var.goog_cm_deployment_name}-bolt-ip"
 }
 
 resource "google_compute_global_forwarding_rule" "neo4j_http" {
@@ -127,15 +126,37 @@ resource "google_compute_global_forwarding_rule" "neo4j_http" {
   ip_address            = google_compute_global_address.neo4j_http.id
 }
 
-resource "google_compute_forwarding_rule" "neo4j_bolt" {
+resource "google_compute_global_forwarding_rule" "neo4j_bolt" {
   name                  = "${var.goog_cm_deployment_name}-forwarding-rule-bolt"
   ip_protocol           = "TCP"
   load_balancing_scheme = "EXTERNAL"
   port_range            = "7687"
   target                = google_compute_target_tcp_proxy.neo4j_bolt.id
-  ip_address            = google_compute_address.neo4j_bolt.id
-  region                = var.region
+  ip_address            = google_compute_global_address.neo4j_bolt.id
 }
 
+resource "google_compute_firewall" "neo4j_http" {
+  name    = "${var.goog_cm_deployment_name}-allow-http"
+  network = var.networks[0]
 
-### Probably need a firewall rule for 7474 and 7687.
+  allow {
+    protocol = "tcp"
+    ports    = ["7474"]
+  }
+
+  source_ranges = ["0.0.0.0/0"]
+  target_tags   = ["${var.goog_cm_deployment_name}-deployment"]
+}
+
+resource "google_compute_firewall" "neo4j_bolt" {
+  name    = "${var.goog_cm_deployment_name}-allow-bolt"
+  network = var.networks[0]
+
+  allow {
+    protocol = "tcp"
+    ports    = ["7687"]
+  }
+
+  source_ranges = ["0.0.0.0/0"]
+  target_tags   = ["${var.goog_cm_deployment_name}-deployment"]
+}
