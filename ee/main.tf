@@ -138,14 +138,13 @@ resource "google_compute_global_forwarding_rule" "neo4j_http" {
   name                  = "${var.goog_cm_deployment_name}-forwarding-rule-http"
   ip_protocol           = "TCP"
   load_balancing_scheme = "EXTERNAL"
-  port_range            = "80"
+  port_range            = "7474"
   target                = google_compute_target_http_proxy.neo4j.id
   ip_address            = google_compute_global_address.neo4j_http.id
 }
 
 resource "google_compute_address" "neo4j_bolt" {
   name         = "${var.goog_cm_deployment_name}-bolt-ip"
-  region       = data.google_client_config.current.region
 }
 
 resource "google_compute_target_tcp_proxy" "neo4j_bolt" {
@@ -155,7 +154,6 @@ resource "google_compute_target_tcp_proxy" "neo4j_bolt" {
 
 resource "google_compute_forwarding_rule" "neo4j_bolt" {
   name                  = "${var.goog_cm_deployment_name}-forwarding-rule-bolt"
-  region                = data.google_client_config.current.region
   ip_protocol           = "TCP"
   load_balancing_scheme = "EXTERNAL"
   port_range            = "7687"
