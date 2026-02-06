@@ -22,7 +22,6 @@ resource "google_compute_instance_template" "neo4j" {
     password  = var.password
     nodeCount = var.node_count
     loadBalancerIP = google_compute_global_address.neo4j.address
-    privateIP = "placeholder"
   })
 }
 
