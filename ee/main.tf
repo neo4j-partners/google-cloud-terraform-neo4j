@@ -49,7 +49,7 @@ resource "google_compute_health_check" "neo4j" {
   name = "${var.goog_cm_deployment_name}-health-check"
 
   timeout_sec        = 1
-  check_interval_sec = 1
+  check_interval_sec = 300
 
   tcp_health_check {
     port = "7474"
