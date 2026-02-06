@@ -160,6 +160,7 @@ resource "google_compute_forwarding_rule" "neo4j_bolt" {
   port_range            = "7687"
   target                = google_compute_target_tcp_proxy.neo4j_bolt.id
   ip_address            = google_compute_address.neo4j_bolt.id
+  region                = var.region
 }
 
 data "google_client_config" "current" {}
