@@ -1,6 +1,7 @@
 #!/bin/bash
 set -euo pipefail
-echo Running startup script...\n"
+
+echo Running startup script...
 
 echo "Installing Graph Database..."
 rpm --import https://debian.neo4j.com/neotechnology.gpg.key
