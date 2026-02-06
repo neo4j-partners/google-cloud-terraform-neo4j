@@ -1,7 +1,7 @@
 # marketplace
 As an end user, you should have little use for the contents of this directory and almost certainly want to either use the Marketplace listing or the Terraform modules in this repo. If you're a Neo4j employee, updating the Google Marketplace listing, these notes may be helpful.
 
-* VM Image doc is [here](https://docs.cloud.google.com/marketplace/docs/partners/vm/build-vm-image).  This also describes how licenses are created.  Those are created once and should be reusable.
+* VM Image doc is [here](https://docs.cloud.google.com/marketplace/docs/partners/vm/build-vm-image).  This also describes how licenses are created.  Those are created once and are reusable for the lifetime of the listing.
 * The documentation for listing Terraform on GCMP is [here](https://docs.cloud.google.com/marketplace/docs/partners/vm/configure-terraform-deployment).
 * Listings are submitted in the product portal [here](https://console.cloud.google.com/producer-portal/overview?project=neo4j-mp-public).
 
