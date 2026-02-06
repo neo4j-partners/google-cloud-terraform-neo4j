@@ -31,7 +31,7 @@ extension_config() {
 }
 
 build_neo4j_conf_file() {
-  local -r privateIP="$(hostname -i | awk '{print $NF}')"
+  local privateIP="$(hostname -i | awk '{print $NF}')"
 
   echo "Configuring network in neo4j.conf..."
   sed -i "s/#server.default_listen_address=0.0.0.0/server.default_listen_address=0.0.0.0/g" /etc/neo4j/neo4j.conf
@@ -47,6 +47,15 @@ build_neo4j_conf_file() {
   echo "server.metrics.filter=*" >> /etc/neo4j/neo4j.conf
   echo "server.metrics.csv.interval=5s" >> /etc/neo4j/neo4j.conf
   echo "dbms.routing.default_router=SERVER" >> /etc/neo4j/neo4j.conf
+
+  local COREMEMBERS=""
+  local INSTANCES=$(gcloud compute instance-groups list-instances neo4j-deployment-mig --region us-central1 --format="value(NAME)")
+  for INSTANCE in $INSTANCES; do
+    COREMEMBERS+=$(gcloud compute instances list --format="value(networkInterfaces[0].networkIP)" --filter="name=( '$INSTANCE' )")
+    COREMEMBERS+=":6000,"
+  done
+  COREMEMBERS="${COREMEMBERS%?}"
+  echo $COREMEMBERS
 }
 
 add_cypher_ip_blocklist() {
