@@ -25,10 +25,10 @@ resource "google_compute_instance_template" "neo4j" {
     disk_type    = "pd-ssd"
   }
 
-#  metadata_startup_script = templatefile("${path.module}/startup.sh", {
-#    password   = "foobar123"
-#    nodeCount = var.node_count
-#  })
+  metadata_startup_script = templatefile("${path.module}/startup.sh.tpl", {
+    password   = "foobar123"
+    nodeCount = var.node_count
+  })
 
   dynamic "network_interface" {
     for_each = local.network_interfaces
