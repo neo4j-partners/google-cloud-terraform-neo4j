@@ -2,9 +2,6 @@
 set -euo pipefail
 echo Running startup script...\n"
 
-export password=${password}
-export nodeCount=${node_count}
-
 echo "Retrieving instance metadata..."
 export NODE_INTERNAL_IP=$(curl -s -H "Metadata-Flavor: Google" http://metadata.google.internal/computeMetadata/v1/instance/network-interfaces/0/ip)
 export NODE_EXTERNAL_IP=$(curl -s -H "Metadata-Flavor: Google" http://metadata.google.internal/computeMetadata/v1/instance/network-interfaces/0/access-configs/0/external-ip)

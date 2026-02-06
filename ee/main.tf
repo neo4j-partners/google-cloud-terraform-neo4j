@@ -27,7 +27,7 @@ resource "google_compute_instance_template" "neo4j" {
 
   metadata_startup_script = templatefile("${path.module}/startup.sh", {
     password   = "foobar123"
-    node_count = var.node_count
+    nodeCount = var.node_count
     loadBalancerDNSName = "${google_compute_global_address.neo4j_http.address}"
   })
 
