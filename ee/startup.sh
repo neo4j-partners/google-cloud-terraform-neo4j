@@ -66,9 +66,6 @@ build_neo4j_conf_file() {
   done
   COREMEMBERS="$${COREMEMBERS%?}"
   echo $COREMEMBERS
-
-  echo "dbms.cluster.discovery.resolver_type=LIST" >> /etc/neo4j/neo4j.conf
-  echo "dbms.cluster.endpoints=$COREMEMBERS" >> /etc/neo4j/neo4j.conf
 }
 
 add_cypher_ip_blocklist() {
