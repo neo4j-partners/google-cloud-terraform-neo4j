@@ -6,7 +6,6 @@ echo password: $password
 echo nodeCount: $nodeCount
 echo loadBalancerIP: $loadBalancerIP
 echo privateIP: $privateIP
-echo coreMembers: $coreMembers
 
 
 
