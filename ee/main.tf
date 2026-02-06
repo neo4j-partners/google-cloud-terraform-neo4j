@@ -31,11 +31,9 @@ resource "google_compute_instance" "neo4j" {
   metadata = {}
 
   metadata_startup_script = templatefile("${path.module}/startup.sh", {
-    password          = var.password
+    password          = "foobar123"
     node_count        = var.node_count
     node_index        = count.index + 1
-    deployment_name   = var.deployment_name
-    project_id        = var.project_id
   })
 
   dynamic "network_interface" {

@@ -4,7 +4,9 @@ variable "goog_cm_deployment_name" {
   type        = string
 }
 
+####################
 #### Network Variables
+####################
 
 variable "networks" {
   description = "The network name to attach the VM instance."
@@ -24,8 +26,9 @@ variable "external_ips" {
   default     = ["EPHEMERAL"]
 }
 
-
+####################
 #### VM Variables
+####################
 
 variable "node_count" {
   description = "Number of Neo4j instances to deploy"
@@ -57,5 +60,6 @@ variable "disk_size" {
 variable "source_image" {
   description = "Base image for the VM instance."
   type        = string
-  default     = "projects/neo4j-mp-public/global/images/neo4j-enterprise-edition"
+  default     = "projects/rhel-cloud/global/images/rehl-9-v20260114"
+  #default     = "projects/neo4j-mp-public/global/images/neo4j-enterprise-edition"
 }
