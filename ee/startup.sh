@@ -7,8 +7,6 @@ echo "nodeCount: ${nodeCount}"
 echo "loadBalancerIP: ${loadBalancerIP}"
 echo "privateIP: ${privateIP}"
 
-
-
 install_neo4j_from_yum() {
   echo "Installing Graph Database..."
   rpm --import https://debian.neo4j.com/neotechnology.gpg.key
