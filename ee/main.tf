@@ -30,6 +30,7 @@ resource "google_compute_instance_template" "neo4j" {
     nodeCount = var.node_count
     loadBalancerDNSName = "${google_compute_global_address.neo4j_http.address}"
     privateIP = "${google_compute_instance_template.neo4j.network_interface.0.network_ip}"
+    instanceId = "${google_compute_instance_template.neo4j.id}"
   })
 
   dynamic "network_interface" {
