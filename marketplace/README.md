@@ -37,7 +37,7 @@ Next, create an image for each license:
       gcloud compute instances create ${INSTANCE} \
       --project "neo4j-mp-public" \
       --zone "us-central1-f" \
-      --machine-type "c3-standard-4" \
+      --machine-type "n4-standard-4" \
       --network "default" \
       --maintenance-policy "MIGRATE" \
       --scopes default="https://www.googleapis.com/auth/cloud-platform" \

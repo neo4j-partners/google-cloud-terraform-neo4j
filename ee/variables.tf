@@ -27,7 +27,7 @@ variable "node_count" {
 variable "machine_type" {
   description = "GCP machine type for Neo4j nodes"
   type        = string
-  default     = "n4-standard-2"
+  default     = "n4-standard-4"
 }
 
 
