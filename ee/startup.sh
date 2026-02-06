@@ -56,25 +56,6 @@ build_neo4j_conf_file() {s
     sed -i s/#initial.dbms.default_primaries_count=1/initial.dbms.default_primaries_count=3/g /etc/neo4j/neo4j.conf
     sed -i s/#initial.dbms.default_secondaries_count=0/initial.dbms.default_secondaries_count=$(expr ${nodeCount} - 3)/g /etc/neo4j/neo4j.conf
     echo "dbms.cluster.minimum_initial_system_primaries_count=${nodeCount}" >> /etc/neo4j/neo4j.conf
-
-
-
-#    TOKEN=$(curl -X PUT "http://169.254.169.254/latest/api/token" -H "X-aws-ec2-metadata-token-ttl-seconds: 21600")
-#    instanceId=$(curl -H "X-aws-ec2-metadata-token: $TOKEN" -s http://169.254.169.254/latest/meta-data/instance-id)
-#    if [[ ${instanceId} -eq 0 ]]; then
-#      echo "Missing instance ID. Exiting."
-#    fi
-#    coreMembers=$(aws autoscaling describe-auto-scaling-instances --region $region --output text --query "AutoScalingInstances[?contains(AutoScalingGroupName,'$stackName-Neo4jAutoScalingGroup')].[InstanceId]" | xargs -n1 -I {} aws ec2 describe-instances --instance-ids {} --region $region --query "Reservations[].Instances[].PrivateIpAddress" --output text --filter "Name=tag:aws:cloudformation:stack-name,Values=$stackName")
-
-#    if [[ ${coreMembers} -eq 0 ]]; then
-#     echo "Missing coreMembers. Exiting!!!"
-#    fi
-#    echo "CoreMembers = ${coreMembers}"
-#    coreMembers=$(echo ${coreMembers} | sed 's/ /:6000,/g')
-#    coreMembers=$(echo "${coreMembers}"):6000
-#    echo "dbms.cluster.discovery.resolver_type=LIST" >> /etc/neo4j/neo4j.conf
-#    echo "dbms.cluster.endpoints=${coreMembers}" >> /etc/neo4j/neo4j.conf
-#  fi
 }
 
 add_cypher_ip_blocklist() {
