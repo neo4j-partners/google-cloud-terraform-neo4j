@@ -43,22 +43,6 @@ resource "google_compute_region_instance_group_manager" "neo4j" {
     name = "neo4j-bolt"
     port = 7687
   }
-
-  auto_healing_policies {
-    health_check      = google_compute_health_check.neo4j.id
-    initial_delay_sec = 300
-  }
-}
-
-resource "google_compute_health_check" "neo4j" {
-  name               = "${var.goog_cm_deployment_name}-health-check"
-  check_interval_sec = 10
-  timeout_sec        = 5
-
-  http_health_check {
-    port = "7474"
-    request_path = "/"
-  }
 }
 
 resource "google_compute_backend_service" "neo4j_http" {
@@ -74,8 +58,6 @@ resource "google_compute_backend_service" "neo4j_http" {
     balancing_mode = "RATE"
     max_rate_per_instance = 1000
   }
-
-  health_checks = [google_compute_health_check.neo4j.id]
 }
 
 resource "google_compute_backend_service" "neo4j_bolt" {
@@ -90,8 +72,6 @@ resource "google_compute_backend_service" "neo4j_bolt" {
     balancing_mode = "CONNECTION"
     max_connections_per_instance = 1000
   }
-
-  health_checks = [google_compute_health_check.neo4j.id]
 }
 
 resource "google_compute_url_map" "neo4j_http" {
@@ -109,12 +89,8 @@ resource "google_compute_target_tcp_proxy" "neo4j_bolt" {
   backend_service = google_compute_backend_service.neo4j_bolt.id
 }
 
-resource "google_compute_global_address" "neo4j_http" {
-  name = "${var.goog_cm_deployment_name}-http-ip"
-}
-
-resource "google_compute_global_address" "neo4j_bolt" {
-  name = "${var.goog_cm_deployment_name}-bolt-ip"
+resource "google_compute_global_address" "neo4j" {
+  name = "${var.goog_cm_deployment_name}"
 }
 
 resource "google_compute_global_forwarding_rule" "neo4j_http" {
@@ -123,7 +99,7 @@ resource "google_compute_global_forwarding_rule" "neo4j_http" {
   load_balancing_scheme = "EXTERNAL"
   port_range            = "7474"
   target                = google_compute_target_http_proxy.neo4j.id
-  ip_address            = google_compute_global_address.neo4j_http.id
+  ip_address            = google_compute_global_address.neo4j.id
 }
 
 resource "google_compute_global_forwarding_rule" "neo4j_bolt" {
@@ -132,29 +108,16 @@ resource "google_compute_global_forwarding_rule" "neo4j_bolt" {
   load_balancing_scheme = "EXTERNAL"
   port_range            = "7687"
   target                = google_compute_target_tcp_proxy.neo4j_bolt.id
-  ip_address            = google_compute_global_address.neo4j_bolt.id
+  ip_address            = google_compute_global_address.neo4j.id
 }
 
-resource "google_compute_firewall" "neo4j_http" {
-  name    = "${var.goog_cm_deployment_name}-allow-http"
+resource "google_compute_firewall" "neo4j" {
+  name    = "${var.goog_cm_deployment_name}"
   network = "default"
 
   allow {
     protocol = "tcp"
-    ports    = ["7474"]
-  }
-
-  source_ranges = ["0.0.0.0/0"]
-  target_tags   = ["${var.goog_cm_deployment_name}-deployment"]
-}
-
-resource "google_compute_firewall" "neo4j_bolt" {
-  name    = "${var.goog_cm_deployment_name}-allow-bolt"
-  network = "default"
-
-  allow {
-    protocol = "tcp"
-    ports    = ["7687"]
+    ports    = ["7474", "7687"]
   }
 
   source_ranges = ["0.0.0.0/0"]
