@@ -52,7 +52,7 @@ build_neo4j_conf_file() {
     COREMEMBERS+=$(gcloud compute instances list --format="value(networkInterfaces[0].networkIP)" --filter="name=( '$INSTANCE' )")
     COREMEMBERS+=":6000,"
   done
-  COREMEMBERS="${COREMEMBERS%?}"
+  COREMEMBERS="${COREMEMBERS\%?}"
   echo $COREMEMBERS
 }
 
