@@ -8,6 +8,7 @@ resource "google_compute_instance_template" "neo4j" {
   disk {
     source_image = var.source_image
     disk_size_gb = var.disk_size
+    disk_type = "pd-ssd"
   }
 
   network_interface {
