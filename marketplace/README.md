@@ -68,5 +68,4 @@ We were previously piping yes, but that doesn't seem to be working currently, so
       --description ADD_DESCRIPTION
     done
 
-We've orphaned two disks.  Let's clean those up.
-
+We've orphaned two disks.  Be sure to clean those up in the console.
