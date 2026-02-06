@@ -104,7 +104,7 @@ resource "google_compute_global_forwarding_rule" "neo4j_http" {
   ip_protocol           = "TCP"
   load_balancing_scheme = "EXTERNAL"
   port_range            = "7474"
-  target                = google_compute_target_http_proxy.neo4j_http.id
+  target                = google_compute_target_tcp_proxy.neo4j_http.id
   ip_address            = google_compute_global_address.neo4j.id
 }
 
