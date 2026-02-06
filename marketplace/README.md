@@ -1,9 +1,9 @@
 # marketplace
 As an end user, you should have little use for the contents of this directory and almost certainly want to either use the Marketplace listing or the Terraform modules in this repo. If you're a Neo4j employee, updating the Google Marketplace listing, these notes may be helpful.
 
-The documentation for listing Terraform on GCMP is [here](https://docs.cloud.google.com/marketplace/docs/partners/vm/configure-terraform-deployment).
-
-Listings are submitted in the product portal [here](https://console.cloud.google.com/producer-portal/overview?project=neo4j-mp-public).
+* VM Image doc is [here](https://docs.cloud.google.com/marketplace/docs/partners/vm/build-vm-image).  This also describes how licenses are created.  Those are created once and should be reusable.
+* The documentation for listing Terraform on GCMP is [here](https://docs.cloud.google.com/marketplace/docs/partners/vm/configure-terraform-deployment).
+* Listings are submitted in the product portal [here](https://console.cloud.google.com/producer-portal/overview?project=neo4j-mp-public).
 
 ## Open Source Worksheet
 Google requires completion of an open source worksheet.  Ours is [here](https://docs.google.com/spreadsheets/d/1z2YDbdeUVzHkpEmJGqYfcFHZcSd4rBPazYYH-zSJEg0/edit?usp=sharing).
@@ -24,7 +24,7 @@ Then you're going to want to set these variables based on what you found above.
 
 Next, create an image for each license:
 
-    LICENSES=(neo4j-enterprise-edition-byol neo4j-community-edition-paygo)
+    LICENSES=(cloud-marketplace-10bbf7768486af4b-df1ebeb69c0ba664 cloud-marketplace-c48d0eea1bfd511e-df1ebeb69c0ba664)
     for LICENSE in ${LICENSES[@]}; do
       INSTANCE=${LICENSE}-${IMAGE_VERSION}
       gcloud compute instances create ${INSTANCE} \
@@ -62,4 +62,3 @@ We were previously piping yes, but that doesn't seem to be working currently, so
     done
 
 We've orphaned two disks.  Let's clean those up.
-
