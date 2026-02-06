@@ -1,73 +1,47 @@
 provider "google" {
 }
 
-locals {
-  network_interfaces = [ for i, n in var.networks : {
-    network     = n,
-    subnetwork  = length(var.sub_networks) > i ? element(var.sub_networks, i) : null
-    external_ip = length(var.external_ips) > i ? element(var.external_ips, i) : "NONE"
-    }
-  ]
-}
-
 resource "google_compute_instance_template" "neo4j" {
-  name_prefix = "${var.goog_cm_deployment_name}-tmpl-"
-  description = "Instance template for Neo4j"
+  name = "${var.goog_cm_deployment_name}-instance-template"
   machine_type = var.machine_type
 
-  tags = ["${var.goog_cm_deployment_name}-deployment", "neo4j"]
-
   disk {
-    auto_delete  = true
-    boot         = true
     source_image = var.source_image
     disk_size_gb = var.disk_size
-    disk_type    = "pd-ssd"
   }
 
-  metadata_startup_script = templatefile("${path.module}/startup.sh.tpl", {
+  network_interface {
+    network = "default"
+    access_config {
+      network_tier = "PREMIUM"
+    }
+  }
+
+  metadata_startup_script = templatefile("${path.module}/startup.sh", {
     password   = "foobar123"
     nodeCount = var.node_count
   })
-
-  dynamic "network_interface" {
-    for_each = local.network_interfaces
-    content {
-      network = network_interface.value.network
-      subnetwork = network_interface.value.subnetwork
-
-      dynamic "access_config" {
-        for_each = network_interface.value.external_ip == "NONE" ? [] : [1]
-        content {
-          nat_ip = network_interface.value.external_ip == "EPHEMERAL" ? null : network_interface.value.external_ip
-        }
-      }
-    }
-  }
-
-  lifecycle {
-    create_before_destroy = true
-  }
 }
 
-resource "google_compute_instance_group_manager" "neo4j" {
-  name             = "${var.goog_cm_deployment_name}-mig"
-  base_instance_name = var.goog_cm_deployment_name
-  zone             = var.zone
-  target_size      = var.node_count
+resource "google_compute_region_instance_group_manager" "neo4j" {
+  name                      = "${var.goog_cm_deployment_name}-mig"
+  region                    = var.region
+  distribution_policy_zones = var.zones
+  target_size               = var.node_count
+  base_instance_name        = var.goog_cm_deployment_name
 
   version {
     instance_template = google_compute_instance_template.neo4j.id
   }
 
   named_port {
-    name = "neo4j-bolt"
-    port = 7687
+    name = "neo4j-http"
+    port = 7474
   }
 
   named_port {
-    name = "neo4j-http"
-    port = 7474
+    name = "neo4j-bolt"
+    port = 7687
   }
 
   auto_healing_policies {
@@ -162,3 +136,6 @@ resource "google_compute_forwarding_rule" "neo4j_bolt" {
   ip_address            = google_compute_address.neo4j_bolt.id
   region                = var.region
 }
+
+
+### Probably need a firewall rule for 7474 and 7687.

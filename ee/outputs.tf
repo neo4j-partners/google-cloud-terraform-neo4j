@@ -1,6 +1,6 @@
 output "neo4j_http_url" {
   description = "URL to access Neo4j Browser via load balancer"
-  value       = "http://${google_compute_global_address.neo4j_http.address}"
+  value       = "http://${google_compute_global_address.neo4j_http.address}:7474"
 }
 
 output "neo4j_bolt_endpoint" {

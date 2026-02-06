@@ -4,31 +4,15 @@ variable "goog_cm_deployment_name" {
   type        = string
 }
 
-####################
-#### Network Variables
-####################
-
-variable "networks" {
-  description = "The network name to attach the VM instance."
-  type        = list(string)
-  default     = ["default"]
+variable "region" {
+  description = "The GCP region where resources will be created"
+  type        = string
 }
 
-variable "sub_networks" {
-  description = "The sub network name to attach the VM instance."
+variable "zones" {
+  description = "The GCP zones where resources will be created"
   type        = list(string)
-  default     = []
 }
-
-variable "external_ips" {
-  description = "The external IPs assigned to the VM for public access."
-  type        = list(string)
-  default     = ["EPHEMERAL"]
-}
-
-####################
-#### VM Variables
-####################
 
 variable "node_count" {
   description = "Number of Neo4j instances to deploy"
@@ -46,15 +30,6 @@ variable "machine_type" {
   default     = "c3-standard-4"
 }
 
-variable "zone" {
-  description = "The GCP zone where resources will be created"
-  type        = string
-}
-
-variable "region" {
-  description = "The GCP region where resources will be created"
-  type        = string
-}
 
 variable "disk_size" {
   description = "Size of the data disk in GB"
