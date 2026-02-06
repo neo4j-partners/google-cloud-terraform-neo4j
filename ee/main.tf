@@ -145,6 +145,7 @@ resource "google_compute_global_forwarding_rule" "neo4j_http" {
 
 resource "google_compute_address" "neo4j_bolt" {
   name         = "${var.goog_cm_deployment_name}-bolt-ip"
+  region       = var.region
 }
 
 resource "google_compute_target_tcp_proxy" "neo4j_bolt" {

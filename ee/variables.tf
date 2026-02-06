@@ -51,6 +51,11 @@ variable "zone" {
   type        = string
 }
 
+variable "region" {
+  description = "The GCP region where resources will be created"
+  type        = string
+}
+
 variable "disk_size" {
   description = "Size of the data disk in GB"
   type        = number
