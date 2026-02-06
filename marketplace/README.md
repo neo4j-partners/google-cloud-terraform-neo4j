@@ -20,14 +20,14 @@ You only need to do this occassionally, when the underlying OS is out of date.  
 
 Open up a cloud shell.  While you could do this on your local machine with gcloud, it's way easier to just use a cloud shell.
 
-Now we need to decide what OS image to use.  We're using the latest RHEL.  You can figure out what that is by running:
+Now we need to decide what OS image to use.  We're using the latest Cent OS.  You can figure out what that is by running:
 
     gcloud compute images list
 
 Then you're going to want to set these variables based on what you found above.
 
-    IMAGE_VERSION=v20260114
-    IMAGE_NAME=rhel-9-${IMAGE_VERSION}
+    IMAGE_VERSION=v20260126
+    IMAGE_NAME=centos-stream-10-${IMAGE_VERSION}
 
 Next, create an image for each license:
 
@@ -41,7 +41,7 @@ Next, create an image for each license:
       --network "default" \
       --maintenance-policy "MIGRATE" \
       --scopes default="https://www.googleapis.com/auth/cloud-platform" \
-      --image "https://www.googleapis.com/compute/v1/projects/rhel-cloud/global/images/${IMAGE_NAME}" --boot-disk-size "20" \
+      --image "https://www.googleapis.com/compute/v1/projects/centos-cloud/global/images/${IMAGE_NAME}" --boot-disk-size "20" \
       --boot-disk-type "pd-ssd" \
       --boot-disk-device-name ${INSTANCE} \
       --no-boot-disk-auto-delete \
