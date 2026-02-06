@@ -91,7 +91,7 @@ resource "google_compute_backend_service" "neo4j_bolt" {
 
 resource "google_compute_target_tcp_proxy" "neo4j_http" {
   name            = "${var.goog_cm_deployment_name}-tcp-proxy-http"
-  backend_service = google_compute_backend_service.neo4j_http
+  backend_service = google_compute_backend_service.neo4j_http.id
 }
 
 resource "google_compute_target_tcp_proxy" "neo4j_bolt" {
