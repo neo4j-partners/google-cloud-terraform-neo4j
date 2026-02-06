@@ -38,4 +38,4 @@ To delete your deployment you can either run:
     terraform detroy
 
 ## Debugging
-If the Neo4j Browser isn't coming up, there's a good chance something isn't right in your deployment.  One thing to investigate is the cloud-init logs.  `/var/log/cloud-init-output.log` is probably the best starting point.  If that looks good, the next place to check out is `/var/log/neo4j/debug.log`.
+If the Neo4j Browser isn't coming up, there's a good chance something isn't right in your deployment.  One thing to investigate is console output from the VM.  If that looks good, the next place to check out is `/var/log/neo4j/debug.log`.

@@ -2,19 +2,19 @@
 set -euo pipefail
 echo Running startup script...\n"
 
-echo "Retrieving instance metadata..."
-export NODE_INTERNAL_IP=$(curl -s -H "Metadata-Flavor: Google" http://metadata.google.internal/computeMetadata/v1/instance/network-interfaces/0/ip)
-export NODE_EXTERNAL_IP=$(curl -s -H "Metadata-Flavor: Google" http://metadata.google.internal/computeMetadata/v1/instance/network-interfaces/0/access-configs/0/external-ip)
-export INSTANCE_NAME=$(curl -s -H "Metadata-Flavor: Google" http://metadata.google.internal/computeMetadata/v1/instance/name)
+#echo "Retrieving instance metadata..."
+#export NODE_INTERNAL_IP=$(curl -s -H "Metadata-Flavor: Google" http://metadata.google.internal/computeMetadata/v1/instance/network-interfaces/0/ip)
+#export NODE_EXTERNAL_IP=$(curl -s -H "Metadata-Flavor: Google" http://metadata.google.internal/computeMetadata/v1/instance/network-interfaces/0/access-configs/0/external-ip)
+#export INSTANCE_NAME=$(curl -s -H "Metadata-Flavor: Google" http://metadata.google.internal/computeMetadata/v1/instance/name)
 
 # Extract node index from instance name (neo4j-deployment_name-X format)
-export NODE_INDEX=$(echo $INSTANCE_NAME | sed 's/.*-//')
+#export NODE_INDEX=$(echo $INSTANCE_NAME | sed 's/.*-//')
     
-echo "Metadata retrieved:"
-echo "NODE_INTERNAL_IP: $NODE_INTERNAL_IP"
-echo "NODE_EXTERNAL_IP: $NODE_EXTERNAL_IP"
-echo "INSTANCE_NAME: $INSTANCE_NAME"
-echo "NODE_INDEX: $NODE_INDEX"
+#echo "Metadata retrieved:"
+#echo "NODE_INTERNAL_IP: $NODE_INTERNAL_IP"
+#echo "NODE_EXTERNAL_IP: $NODE_EXTERNAL_IP"
+#echo "INSTANCE_NAME: $INSTANCE_NAME"
+#echo "NODE_INDEX: $NODE_INDEX"
 
 install_neo4j_from_yum() {
   echo "Installing Graph Database..."
