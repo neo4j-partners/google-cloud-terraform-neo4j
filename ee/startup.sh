@@ -20,8 +20,6 @@ echo "NODE_EXTERNAL_IP: $NODE_EXTERNAL_IP"
 echo "INSTANCE_NAME: $INSTANCE_NAME"
 echo "NODE_INDEX: $NODE_INDEX"
 
-export loadBalancerDNSName="foo"
-
 install_neo4j_from_yum() {
   echo "Installing Graph Database..."
   rpm --import https://debian.neo4j.com/neotechnology.gpg.key
