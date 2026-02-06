@@ -19,7 +19,7 @@ resource "google_compute_instance_template" "neo4j" {
   }
 
   metadata_startup_script = templatefile("${path.module}/startup.sh", {
-    password   = "foobar123"
+    password  = "foobar123"
     nodeCount = var.node_count
   })
 }
