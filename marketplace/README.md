@@ -74,4 +74,6 @@ Now we need to make images and add the licenses to each image.  The license is w
     LICENSE=cloud-marketplace-10bbf7768486af4b-df1ebeb69c0ba664
     create_image
 
+We're going to have name collision issues as we update.  However it may be better this way as we won't need to update OS in the template.
+
 We've orphaned two disks.  Be sure to clean those up in the console.
