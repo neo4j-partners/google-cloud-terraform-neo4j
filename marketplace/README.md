@@ -60,19 +60,19 @@ Now we're going to delete the VM.  We'll be left with its boot disk.  This comma
 
 We were previously piping yes, but that doesn't seem to be working currently, so you'll have to type "y" a few times.
 
-Now we need to add the licenses to each disk.  This is what Google users for metering.
+Now we need to make images and add the licenses to each image.  The license is what Google users for metering.
 
     INSTANCE=ce-${IMAGE_VERSION}
-    LICENSE=cloud-marketplace-10bbf7768486af4b-df1ebeb69c0ba664
-    gcloud compute images create ${INSTANCE} \
+    LICENSE=cloud-marketplace-c48d0eea1bfd511e-df1ebeb69c0ba664
+    gcloud compute images create neo4j-community-edition \
     --project "neo4j-mp-public" \
     --source-disk projects/neo4j-mp-public/zones/us-central1-f/disks/${INSTANCE} \
     --licenses projects/neo4j-mp-public/global/licenses/${LICENSE} \
     --description ADD_DESCRIPTION
 
     INSTANCE=ee-${IMAGE_VERSION}
-    LICENSE=cloud-marketplace-c48d0eea1bfd511e-df1ebeb69c0ba664
-    gcloud compute images create ${INSTANCE} \
+    LICENSE=cloud-marketplace-10bbf7768486af4b-df1ebeb69c0ba664
+    gcloud compute images create neo4j-enterprise-edition \
     --project "neo4j-mp-public" \
     --source-disk projects/neo4j-mp-public/zones/us-central1-f/disks/${INSTANCE} \
     --licenses projects/neo4j-mp-public/global/licenses/${LICENSE} \
