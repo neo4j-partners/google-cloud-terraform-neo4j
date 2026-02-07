@@ -1,4 +1,5 @@
 provider "google" {
+  project = var.project_id
 }
 
 resource "google_compute_instance" "neo4j" {
