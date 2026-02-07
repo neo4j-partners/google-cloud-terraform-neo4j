@@ -58,8 +58,8 @@ start_neo4j() {
   neo4j-admin dbms set-initial-password "$password"
 }
 
-install_neo4j_from_yum
-extension_config
-build_neo4j_conf_file
-add_cypher_ip_blocklist
-start_neo4j
+#install_neo4j_from_yum
+#extension_config
+#build_neo4j_conf_file
+#add_cypher_ip_blocklist
+#start_neo4j
