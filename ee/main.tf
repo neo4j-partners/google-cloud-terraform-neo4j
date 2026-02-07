@@ -2,19 +2,14 @@ provider "google" {
   project = var.project_id
 }
 
-resource "google_service_account" "default" {
-  account_id   = "neo4j-service-account"
-  display_name = "Neo4j Service Account"
-}
-
 resource "google_compute_instance_template" "neo4j" {
-  name = "${var.goog_cm_deployment_name}-instance-template"
+  name         = "${var.goog_cm_deployment_name}-instance-template"
   machine_type = var.machine_type
 
   disk {
     source_image = var.source_image
     disk_size_gb = var.disk_size
-    disk_type = "hyperdisk-balanced"
+    disk_type    = "hyperdisk-balanced"
   }
 
   network_interface {
@@ -25,19 +20,14 @@ resource "google_compute_instance_template" "neo4j" {
   }
 
   metadata_startup_script = templatefile("${path.module}/startup.sh", {
-    password  = var.password
-    nodeCount = var.node_count
+    password       = var.password
+    nodeCount      = var.node_count
     loadBalancerIP = google_compute_global_address.neo4j.address
   })
-
-  service_account {
-    email  = google_service_account.default.email
-    scopes = ["cloud-platform"]
-  }
 }
 
 resource "google_compute_region_instance_group_manager" "neo4j" {
-  name                      = "${var.goog_cm_deployment_name}-mig"
+  name                      = "${var.goog_cm_deployment_name}-instance-group-manager"
   region                    = var.region
   distribution_policy_zones = var.zones
   target_size               = var.node_count
@@ -70,16 +60,16 @@ resource "google_compute_health_check" "neo4j" {
 }
 
 resource "google_compute_backend_service" "neo4j_http" {
-  name             = "${var.goog_cm_deployment_name}-backend-http"
-  protocol         = "TCP"
-  port_name        = "neo4j-http"
-  timeout_sec      = 30
+  name                  = "${var.goog_cm_deployment_name}-backend-http"
+  protocol              = "TCP"
+  port_name             = "neo4j-http"
+  timeout_sec           = 30
   load_balancing_scheme = "EXTERNAL"
-  enable_cdn       = false
+  enable_cdn            = false
 
   backend {
-    group          = google_compute_region_instance_group_manager.neo4j.instance_group
-    balancing_mode = "CONNECTION"
+    group                        = google_compute_region_instance_group_manager.neo4j.instance_group
+    balancing_mode               = "CONNECTION"
     max_connections_per_instance = 1000
   }
 
@@ -87,15 +77,15 @@ resource "google_compute_backend_service" "neo4j_http" {
 }
 
 resource "google_compute_backend_service" "neo4j_bolt" {
-  name             = "${var.goog_cm_deployment_name}-backend-bolt"
-  protocol         = "TCP"
-  port_name        = "neo4j-bolt"
-  timeout_sec      = 30
+  name                  = "${var.goog_cm_deployment_name}-backend-bolt"
+  protocol              = "TCP"
+  port_name             = "neo4j-bolt"
+  timeout_sec           = 30
   load_balancing_scheme = "EXTERNAL"
 
   backend {
-    group          = google_compute_region_instance_group_manager.neo4j.instance_group
-    balancing_mode = "CONNECTION"
+    group                        = google_compute_region_instance_group_manager.neo4j.instance_group
+    balancing_mode               = "CONNECTION"
     max_connections_per_instance = 1000
   }
 
