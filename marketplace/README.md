@@ -61,7 +61,7 @@ Now we need to make images and add the licenses to each image.  The license is w
     create_image() {
       gcloud compute images create neo4j-enterprise-edition \
       --project "neo4j-mp-public" \
-      --source-disk projects/neo4j-mp-public/zones/us-central1-f/disks/${INSTANCE} \
+      --source-disk projects/neo4j-mp-public/zones/us-central1-f/disks/${EDITION} \
       --licenses projects/neo4j-mp-public/global/licenses/${LICENSE} \
       --description ADD_DESCRIPTION
     }
