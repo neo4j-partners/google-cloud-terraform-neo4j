@@ -25,7 +25,7 @@ resource "google_compute_instance_template" "neo4j" {
   })
 
   service_account {
-    scopes = ["compute-rw"]
+    scopes = ["cloud-platform"]
   }
 }
 
