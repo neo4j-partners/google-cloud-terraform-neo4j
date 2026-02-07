@@ -4,14 +4,9 @@ variable "goog_cm_deployment_name" {
   type        = string
 }
 
-variable "region" {
-  description = "The GCP region where resources will be created"
+variable "zone" {
+  description = "The GCP zone where resources will be created"
   type        = string
-}
-
-variable "zones" {
-  description = "The GCP zones where resources will be created"
-  type        = list(string)
 }
 
 variable "password" {

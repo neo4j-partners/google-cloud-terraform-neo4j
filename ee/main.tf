@@ -1,4 +1,6 @@
 provider "google" {
+  project     = "my-project-id"
+  region      = "us-central1"
 }
 
 resource "google_service_account" "default" {
