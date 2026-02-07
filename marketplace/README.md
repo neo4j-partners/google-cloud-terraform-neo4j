@@ -53,7 +53,7 @@ Now we're going to delete the VM.  We'll be left with its boot disk.  This comma
 
     for EDITION in "ce" "ee"; do
       INSTANCE=${EDITION}-${IMAGE_VERSION}
-      yes | gcloud compute instances delete ${INSTANCE} \
+      gcloud compute instances delete ${INSTANCE} \
       --project "neo4j-mp-public" \
       --zone "us-central1-f"
     done
