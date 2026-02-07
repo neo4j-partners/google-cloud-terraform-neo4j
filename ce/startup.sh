@@ -7,14 +7,14 @@ export password="${password}"
 install_neo4j_from_yum() {
   echo "Installing Graph Database..."
   rpm --import https://debian.neo4j.com/neotechnology.gpg.key
-  echo "[neo4j]
+  cat <<EOF > /etc/yum.repos.d/neo4j.repo
+[neo4j]
 name=Neo4j RPM Repository
 baseurl=https://yum.neo4j.com/stable/latest
 enabled=1
-gpgcheck=1" > /etc/yum.repos.d/neo4j.repo
-  export NEO4J_ACCEPT_LICENSE_AGREEMENT=yes
-  yum -y install neo4j-enterprise
-  systemctl enable neo4j
+gpgcheck=1
+EOF
+  yum -y install neo4j
 }
 
 extension_config() {
@@ -50,6 +50,7 @@ add_cypher_ip_blocklist() {
 
 start_neo4j() {
   echo "Starting Neo4j..."
+  systemctl enable neo4j
 
   # service neo4j start
   # The service wrapper is failing.  Instead, let's try starting directly.
