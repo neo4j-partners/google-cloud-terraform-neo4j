@@ -1,5 +1,5 @@
 provider "google" {
-  project     = "my-project-id"
+  project     = "neo4j-businessdev"
   region      = "us-central1"
 }
 
