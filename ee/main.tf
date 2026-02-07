@@ -2,6 +2,11 @@ provider "google" {
   project = var.project_id
 }
 
+resource "google_service_account" "default" {
+  account_id   = "service-account-id"
+  display_name = "Service Account"
+}
+
 resource "google_compute_instance_template" "neo4j" {
   name         = "${var.goog_cm_deployment_name}-instance-template"
   machine_type = var.machine_type
@@ -24,6 +29,11 @@ resource "google_compute_instance_template" "neo4j" {
     nodeCount      = var.node_count
     loadBalancerIP = google_compute_global_address.neo4j.address
   })
+
+   service_account {
+    email  = google_service_account.default.email
+    scopes = ["cloud-platform"]
+  }
 }
 
 resource "google_compute_region_instance_group_manager" "neo4j" {
