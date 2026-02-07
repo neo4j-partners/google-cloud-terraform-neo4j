@@ -37,5 +37,4 @@ resource "google_compute_firewall" "neo4j" {
   }
 
   source_ranges = ["0.0.0.0/0"]
-  target_tags   = ["${var.goog_cm_deployment_name}-deployment"]
 }
