@@ -9,9 +9,7 @@ As an end user, you should have little use for the contents of this directory an
 Google requires completion of an open source worksheet.  Ours is [here](https://docs.google.com/spreadsheets/d/1z2YDbdeUVzHkpEmJGqYfcFHZcSd4rBPazYYH-zSJEg0/edit?usp=sharing).
 
 ## Updating the Listing
-To submit an updated listing, run ./makeArchive.sh.  You'll then need to upload those two archives to the neo4j-terraform-marketplace bucket in neo4j-mp-public.  You can do that by running:
-
-    gcloud something something
+To submit an updated listing, run ./makeArchive.sh.  You'll then need to upload those two archives to the neo4j-terraform-marketplace bucket in neo4j-mp-public.
 
 After that you can link the archive in the Producer Portal [here](https://console.cloud.google.com/producer-portal/overview?project=neo4j-mp-public) and hit submit.
 
