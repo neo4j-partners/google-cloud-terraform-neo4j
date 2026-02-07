@@ -8,7 +8,7 @@ As an end user, you should have little use for the contents of this directory an
 ## Open Source Worksheet
 Google requires completion of an open source worksheet.  Ours is [here](https://docs.google.com/spreadsheets/d/1z2YDbdeUVzHkpEmJGqYfcFHZcSd4rBPazYYH-zSJEg0/edit?usp=sharing).
 
-## Updating the Listing
+## Updating the Listing IaC
 To submit an updated listing, run ./makeArchive.sh.  You'll want to make sure the ce and ee directories don't have TF state files and such in them.
 
 Now you can upload those two archives to the neo4j-terraform-marketplace bucket in neo4j-mp-public.  Run the commands:
@@ -18,7 +18,7 @@ Now you can upload those two archives to the neo4j-terraform-marketplace bucket 
 
 After that you can link the archive in the Producer Portal [here](https://console.cloud.google.com/producer-portal/overview?project=neo4j-mp-public) and hit submit.
 
-## Build VM Image For Enterprise Edition
+## Build VM Image
 You only need to do this occassionally, when the underlying OS is out of date.  The image has no Neo4j bits on it, so you don't need to do it when you bump the Neo4j version.
 
 Open up a cloud shell.  While you could do this on your local machine with gcloud, it's way easier to just use a cloud shell.
