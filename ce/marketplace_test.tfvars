@@ -1,3 +1,3 @@
-goog_cm_deployment_name = "neo4j-deployment"
+goog_cm_deployment_name = "test-deployment"
 zone                    = "us-central1-f"
 password                = "foobar123"

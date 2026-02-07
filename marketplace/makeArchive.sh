@@ -5,9 +5,7 @@ for EDITION in "ce" "ee"; do
   mkdir tmp
 
   cp ../$EDITION/* tmp
-
   cd tmp
-
   rm terraform.tfvars
 
   zip -r -X $EDITION-archive.zip *
