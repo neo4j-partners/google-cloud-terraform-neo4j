@@ -4,28 +4,19 @@ set -euo pipefail
 echo Running startup script...
 export password="${password}"
 
-install_neo4j_from_yum() {
-  echo "Installing Graph Database..."
-  rpm --import https://debian.neo4j.com/neotechnology.gpg.key
-  echo "[neo4j]
+echo "Installing Graph Database..."
+rpm --import https://debian.neo4j.com/neotechnology.gpg.key
+echo "[neo4j]
 name=Neo4j RPM Repository
 baseurl=https://yum.neo4j.com/stable/latest
 enabled=1
 gpgcheck=1" > /etc/yum.repos.d/neo4j.repo
-  yum -y install neo4j
-}
+yum -y install neo4j
 
-build_neo4j_conf_file() {
-  echo "Configuring network in neo4j.conf..."
-  sed -i "s/#server.default_listen_address=0.0.0.0/server.default_listen_address=0.0.0.0/g" /etc/neo4j/neo4j.conf
-}
+echo "Configuring network in neo4j.conf..."
+sed -i "s/#server.default_listen_address=0.0.0.0/server.default_listen_address=0.0.0.0/g" /etc/neo4j/neo4j.conf
 
-start_neo4j() {
-  echo "Starting Neo4j..."
-  neo4j-admin dbms set-initial-password "$password"
-  systemctl enable neo4j
-  /usr/bin/neo4j start
-}
-
-install_neo4j_from_yum
-start_neo4j
+echo "Starting Neo4j..."
+neo4j-admin dbms set-initial-password "$password"
+systemctl enable neo4j
+/usr/bin/neo4j start
