@@ -23,6 +23,10 @@ resource "google_compute_instance_template" "neo4j" {
     nodeCount = var.node_count
     loadBalancerIP = google_compute_global_address.neo4j.address
   })
+
+  service_account {
+    scopes = ["compute-rw", "storage-ro", "logging-write", "monitoring-write"]
+  }
 }
 
 resource "google_compute_region_instance_group_manager" "neo4j" {
