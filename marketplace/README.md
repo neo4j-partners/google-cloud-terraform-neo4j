@@ -43,7 +43,7 @@ Next, create an image for each license:
       --maintenance-policy "MIGRATE" \
       --scopes default="https://www.googleapis.com/auth/cloud-platform" \
       --image "https://www.googleapis.com/compute/v1/projects/centos-cloud/global/images/${IMAGE_NAME}" --boot-disk-size "20" \
-      --boot-disk-type "pd-ssd" \
+      --boot-disk-type "hyperdisk-balanced" \
       --boot-disk-device-name ${INSTANCE} \
       --no-boot-disk-auto-delete \
       --scopes "storage-rw"
