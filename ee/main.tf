@@ -1,6 +1,5 @@
 provider "google" {
-  project     = "neo4jbusinessdev"
-  region      = "us-central1"
+  project = var.project_id
 }
 
 resource "google_service_account" "default" {

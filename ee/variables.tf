@@ -1,3 +1,8 @@
+variable "project_id" {
+  description = "The GCP project ID where resources will be created"
+  type        = string
+}
+
 // Marketplace requires this variable name to be declared
 variable "goog_cm_deployment_name" {
   description = "The name of the deployment and VM instance."
