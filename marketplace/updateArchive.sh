@@ -13,3 +13,6 @@ for EDITION in "ce" "ee"; do
   cd ..
   rm -rf tmp
 done
+
+gcloud config set project neo4j-mp-public
+gcloud storage cp *.zip gs://neo4j-terraform-marketplace/
