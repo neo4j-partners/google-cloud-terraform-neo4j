@@ -35,7 +35,6 @@ variable "machine_type" {
   default     = "n4-standard-4"
 }
 
-
 variable "disk_size" {
   description = "Size of the data disk in GB"
   type        = number
