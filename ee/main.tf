@@ -1,6 +1,11 @@
 provider "google" {
 }
 
+resource "google_service_account" "default" {
+  account_id   = "neo4j-service-account"
+  display_name = "Neo4j Service Account"
+}
+
 resource "google_compute_instance_template" "neo4j" {
   name = "${var.goog_cm_deployment_name}-instance-template"
   machine_type = var.machine_type
@@ -25,7 +30,8 @@ resource "google_compute_instance_template" "neo4j" {
   })
 
   service_account {
-    scopes = ["cloud-platform", "compute-ro"]
+    email  = google_service_account.default.email
+    scopes = ["cloud-platform"]
   }
 }
 
