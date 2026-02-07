@@ -20,4 +20,21 @@ resource "google_compute_instance" "neo4j" {
       network_tier = "PREMIUM"
     }
   }
+
+  metadata_startup_script = templatefile("${path.module}/startup.sh", {
+    password  = var.password
+  })
+}
+
+resource "google_compute_firewall" "neo4j" {
+  name    = "${var.goog_cm_deployment_name}"
+  network = "default"
+
+  allow {
+    protocol = "tcp"
+    ports    = ["7474", "7687"]
+  }
+
+  source_ranges = ["0.0.0.0/0"]
+  target_tags   = ["${var.goog_cm_deployment_name}-deployment"]
 }
