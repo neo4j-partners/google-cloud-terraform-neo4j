@@ -15,16 +15,11 @@ spec:
         goog_cm_deployment_name:
           name: goog_cm_deployment_name
           title: Deployment Name
-        region:
-          name: region
-          title: Region
-          xGoogleProperty:
-            type: ET_GCE_REGION
         zones:
-          name: zones
-          title: Zones
+          name: zone
+          title: Zone
           xGoogleProperty:
-            type: ET_GCE_ZONES
+            type: ET_GCE_ZONE
         password:
           name: password
           title: Password

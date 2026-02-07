@@ -39,14 +39,10 @@ spec:
         description: The name of the deployment and VM instances.
         varType: string
         required: true
-      - name: region
-        description: The region for the solution to be deployed.
+      - name: zone
+        description: The zone for the solution to be deployed.
         varType: string
-        defaultValue: us-central1
-      - name: zones
-        description: The zones for the solution to be deployed.
-        varType: list(string)
-        defaultValue: ["us-central1-a", "us-central1-b", "us-central1-c", "us-central1-f"]
+        defaultValue: "us-central1-f"
       - name: password
         description: Password for the Neo4j admin user
         varType: string
