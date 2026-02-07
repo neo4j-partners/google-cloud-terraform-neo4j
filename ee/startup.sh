@@ -89,6 +89,10 @@ done
 COREMEMBERS="$${COREMEMBERS%?}"
 echo $COREMEMBERS
 
+if [[ $${#COREMEMBERS} -eq 0 ]]; then
+  echo "Missing coreMembers. Exiting"
+fi
+
 echo "dbms.cluster.discovery.resolver_type=LIST" >> /etc/neo4j/neo4j.conf
 echo "dbms.cluster.endpoints=$COREMEMBERS" >> /etc/neo4j/neo4j.conf
 
