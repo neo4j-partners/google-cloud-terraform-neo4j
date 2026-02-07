@@ -48,15 +48,13 @@ Next, create an image for each license:
       --scopes "storage-rw"
     done
 
-Now we're going to delete the VM.  We'll be left with its boot disk.  This command takes a few minutes to run and doesn't print anything.  
+Now we're going to delete the VM.  We'll be left with its boot disk.  We were previously piping yes, but that doesn't seem to be working currently, so you'll have to type "y" a few times.
 
     for EDITION in "neo4j-community-edition" "neo4j-enterprise-edition"; do
       gcloud compute instances delete ${EDITION} \
       --project "neo4j-mp-public" \
       --zone "us-central1-f"
     done
-
-We were previously piping yes, but that doesn't seem to be working currently, so you'll have to type "y" a few times.
 
 Now we need to make images and add the licenses to each image.  The license is what Google users for metering.
 
