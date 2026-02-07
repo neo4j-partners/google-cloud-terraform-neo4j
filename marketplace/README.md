@@ -24,7 +24,7 @@ Be sure you're in the marketplace publisher project.
 
 Now we need to decide what OS image to use.  We're using the latest Cent OS.  You can figure out what that is by running:
 
-    gcloud compute images list
+    gcloud compute images list | grep centos
 
 Then you're going to want to set these variables based on what you found above.
 
