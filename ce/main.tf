@@ -1,6 +1,4 @@
 provider "google" {
-  project     = "my-project-id"
-  region      = "us-central1"
 }
 
 resource "google_compute_instance" "neo4j" {
