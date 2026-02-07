@@ -33,9 +33,8 @@ Then you're going to want to set these variables based on what you found above.
 
 Next, create an image for each license:
 
-    for EDITION in "ce" "ee"; do
-      INSTANCE=${EDITION}-${IMAGE_VERSION}
-      gcloud compute instances create ${INSTANCE} \
+    for EDITION in "neo4j-community-edition" "neo4j-enterprise-edition"; do
+      gcloud compute instances create ${EDITION} \
       --project "neo4j-mp-public" \
       --zone "us-central1-f" \
       --machine-type "n4-standard-4" \
@@ -44,16 +43,15 @@ Next, create an image for each license:
       --scopes default="https://www.googleapis.com/auth/cloud-platform" \
       --image "https://www.googleapis.com/compute/v1/projects/centos-cloud/global/images/${IMAGE_NAME}" --boot-disk-size "20" \
       --boot-disk-type "hyperdisk-balanced" \
-      --boot-disk-device-name ${INSTANCE} \
+      --boot-disk-device-name ${EDITION} \
       --no-boot-disk-auto-delete \
       --scopes "storage-rw"
     done
 
 Now we're going to delete the VM.  We'll be left with its boot disk.  This command takes a few minutes to run and doesn't print anything.  
 
-    for EDITION in "ce" "ee"; do
-      INSTANCE=${EDITION}-${IMAGE_VERSION}
-      gcloud compute instances delete ${INSTANCE} \
+    for EDITION in "neo4j-community-edition" "neo4j-enterprise-edition"; do
+      gcloud compute instances delete ${EDITION} \
       --project "neo4j-mp-public" \
       --zone "us-central1-f"
     done
@@ -62,20 +60,20 @@ We were previously piping yes, but that doesn't seem to be working currently, so
 
 Now we need to make images and add the licenses to each image.  The license is what Google users for metering.
 
-    INSTANCE=ce-${IMAGE_VERSION}
-    LICENSE=cloud-marketplace-c48d0eea1bfd511e-df1ebeb69c0ba664
-    gcloud compute images create neo4j-community-edition \
-    --project "neo4j-mp-public" \
-    --source-disk projects/neo4j-mp-public/zones/us-central1-f/disks/${INSTANCE} \
-    --licenses projects/neo4j-mp-public/global/licenses/${LICENSE} \
-    --description ADD_DESCRIPTION
+   create_image() {
+      gcloud compute images create neo4j-enterprise-edition \
+      --project "neo4j-mp-public" \
+      --source-disk projects/neo4j-mp-public/zones/us-central1-f/disks/${INSTANCE} \
+      --licenses projects/neo4j-mp-public/global/licenses/${LICENSE} \
+      --description ADD_DESCRIPTION
+   }
 
-    INSTANCE=ee-${IMAGE_VERSION}
+    EDITION=neo4j-community-edition
+    LICENSE=cloud-marketplace-c48d0eea1bfd511e-df1ebeb69c0ba664
+    create_image
+
+    EDITION=neo4j-enterprise-edition
     LICENSE=cloud-marketplace-10bbf7768486af4b-df1ebeb69c0ba664
-    gcloud compute images create neo4j-enterprise-edition \
-    --project "neo4j-mp-public" \
-    --source-disk projects/neo4j-mp-public/zones/us-central1-f/disks/${INSTANCE} \
-    --licenses projects/neo4j-mp-public/global/licenses/${LICENSE} \
-    --description ADD_DESCRIPTION
+    create_image
 
 We've orphaned two disks.  Be sure to clean those up in the console.
