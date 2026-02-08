@@ -23,8 +23,6 @@ spec:
         zones:
           name: zones
           title: Zones
-          xGoogleProperty:
-            type: ET_GCE_ZONES
         password:
           name: password
           title: Password
