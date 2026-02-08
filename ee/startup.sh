@@ -33,7 +33,14 @@ else
     COREMEMBERS+=$(gcloud compute instances list --format="value(networkInterfaces[0].networkIP)" --filter="name=( '$INSTANCE' )")
     COREMEMBERS+=":6000,"
   done
+
   echo COREMEMBERS1: $COREMEMBERS
+
+  if [[ $${#COREMEMBERS} -eq 0 ]]; then
+    echo Missing coreMembers. Exiting
+    exit 1
+  fi
+
   COREMEMBERS=$${COREMEMBERS::-1}
   echo COREMEMBERS2: $COREMEMBERS
 
