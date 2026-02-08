@@ -25,9 +25,9 @@ resource "google_compute_instance_template" "neo4j" {
   }
 
   metadata_startup_script = templatefile("${path.module}/startup.sh", {
-    password       = var.password
-    nodeCount      = var.node_count
-    loadBalancerIP = google_compute_global_address.neo4j.address
+    password                = var.password
+    nodeCount               = var.node_count
+    goog_cm_deployment_name = var.goog_cm_deployment_name
   })
 
    service_account {

@@ -7,7 +7,7 @@ set -euo pipefail
 echo Running startup script...
 export password="${password}"
 export nodeCount="${nodeCount}"
-export loadBalancerIP="${loadBalancerIP}"
+export goog_cm_deployment_name="${goog_cm_deployment_name}"
 
 echo "Installing Graph Database..."
 rpm --import https://debian.neo4j.com/neotechnology.gpg.key
