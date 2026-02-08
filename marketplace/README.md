@@ -29,7 +29,7 @@ Now we need to decide what OS image to use.  We're using the latest Cent OS.  Yo
 Then you're going to want to set these variables based on what you found above.
 
     IMAGE_VERSION=v20260126
-    IMAGE_NAME=centos-stream-10-${IMAGE_VERSION}
+    PLATFORM_IMAGE_NAME=centos-stream-10-${IMAGE_VERSION}
 
 Next, create an image for each license:
 
