@@ -34,34 +34,38 @@ Then you're going to want to set these variables based on what you found above.
 Next, create an image for each license:
 
     for EDITION in "neo4j-community-edition" "neo4j-enterprise-edition"; do
-      gcloud compute instances create ${EDITION} \
+      NEO4J_IMAGE_NAME=${EDITION}-${IMAGE_VERSION}
+      gcloud compute instances create ${NEO4J_IMAGE_NAME} \
       --project "neo4j-mp-public" \
       --zone "us-central1-f" \
       --machine-type "n4-standard-4" \
       --network "default" \
       --maintenance-policy "MIGRATE" \
       --scopes default="https://www.googleapis.com/auth/cloud-platform" \
-      --image "https://www.googleapis.com/compute/v1/projects/centos-cloud/global/images/${IMAGE_NAME}" --boot-disk-size "20" \
+      --image "https://www.googleapis.com/compute/v1/projects/centos-cloud/global/images/${PLATFORM_IMAGE_NAME}" --boot-disk-size "20" \
       --boot-disk-type "hyperdisk-balanced" \
-      --boot-disk-device-name ${EDITION} \
+      --boot-disk-device-name ${NEO4J_IMAGE_NAME} \
       --no-boot-disk-auto-delete \
       --scopes "storage-rw"
     done
 
-Now we're going to delete the VM.  We'll be left with its boot disk.  We were previously piping yes, but that doesn't seem to be working currently, so you'll have to type "y" a few times.
+Now we're going to delete the VM.  We'll be left with its boot disk.
 
     for EDITION in "neo4j-community-edition" "neo4j-enterprise-edition"; do
-      gcloud compute instances delete ${EDITION} \
+      NEO4J_IMAGE_NAME=${EDITION}-${IMAGE_VERSION}
+      gcloud compute instances delete ${NEO4J_IMAGE_NAME} \
       --project "neo4j-mp-public" \
-      --zone "us-central1-f"
+      --zone "us-central1-f" \
+      --quiet
     done
 
 Now we need to make images and add the licenses to each image.  The license is what Google users for metering.
 
     create_image() {
-      gcloud compute images create ${EDITION} \
+      NEO4J_IMAGE_NAME=${EDITION}-${IMAGE_VERSION}
+      gcloud compute images create ${NEO4J_IMAGE_NAME} \
       --project "neo4j-mp-public" \
-      --source-disk projects/neo4j-mp-public/zones/us-central1-f/disks/${EDITION} \
+      --source-disk projects/neo4j-mp-public/zones/us-central1-f/disks/${NEO4J_IMAGE_NAME} \
       --licenses projects/neo4j-mp-public/global/licenses/${LICENSE} \
       --description ADD_DESCRIPTION
     }
