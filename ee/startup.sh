@@ -28,20 +28,14 @@ else
   echo "Running on multiple nodes.  Configuring membership in neo4j.conf..."
 
   COREMEMBERS=""
-  #### Deployment name is currently hardcoded.  Need to come back and clean this up.
-  INSTANCES=$(gcloud compute instance-groups list-instances neo4j-tf-instance-group-manager --region us-central1 --format="value(NAME)")
+  INSTANCES=$(gcloud compute instance-groups list-instances $goog_cm_deployment_name-instance-group-manager --region us-central1 --format="value(NAME)")
   for INSTANCE in $INSTANCES; do
     COREMEMBERS+=$(gcloud compute instances list --format="value(networkInterfaces[0].networkIP)" --filter="name=( '$INSTANCE' )")
     COREMEMBERS+=":6000,"
   done
   COREMEMBERS=$${COREMEMBERS::-1}
-  echo $COREMEMBERS
-
-  if [[ $${#COREMEMBERS} -eq 0 ]]; then
-    echo "Missing coreMembers. Exiting"
-    exit 1
-  fi
-
+  echo COREMEMBERS: $COREMEMBERS
+  
   sed -i "s/#dbms.cluster.endpoints=localhost:6000,localhost:6001,localhost:6002/dbms.cluster.endpoints=$COREMEMBERS/g" /etc/neo4j/neo4j.conf
 fi
 
