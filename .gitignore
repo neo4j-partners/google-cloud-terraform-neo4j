@@ -3,3 +3,4 @@ marketplace/ee-archive.zip
 
 .terraform
 .terraform.lock.hcl
+terraform.tfstate

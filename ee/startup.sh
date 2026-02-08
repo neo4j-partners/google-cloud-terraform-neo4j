@@ -29,7 +29,7 @@ else
 
   COREMEMBERS=""
   #### Deployment name is currently hardcoded.  Need to come back and clean this up.
-  INSTANCES=$(gcloud compute instance-groups list-instances neo4j-deployment-instance-group-manager --region us-central1 --format="value(NAME)")
+  INSTANCES=$(gcloud compute instance-groups list-instances neo4j-tf-instance-group-manager --region us-central1 --format="value(NAME)")
   for INSTANCE in $INSTANCES; do
     COREMEMBERS+=$(gcloud compute instances list --format="value(networkInterfaces[0].networkIP)" --filter="name=( '$INSTANCE' )")
     COREMEMBERS+=":6000,"

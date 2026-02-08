@@ -1,5 +1,5 @@
 project_id              = "neo4jbusinessdev"
-goog_cm_deployment_name = "neo4j-deployment"
+goog_cm_deployment_name = "neo4j-tf"
 region                  = "us-central1"
 zones                   = ["us-central1-a", "us-central1-b", "us-central1-c", "us-central1-f"]
 password                = "foobar123"
