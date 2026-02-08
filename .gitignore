@@ -1,7 +1,10 @@
+# Created by updateArchive.sh
 marketplace/ce-archive.zip
 marketplace/ee-archive.zip
 
+# Terraform files created by apply
 .terraform
 .terraform.lock.hcl
+.terraform.tfstate.lock.info
 terraform.tfstate
 terraform.tfstate.backup
