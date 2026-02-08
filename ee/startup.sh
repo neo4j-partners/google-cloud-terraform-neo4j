@@ -33,9 +33,10 @@ else
     COREMEMBERS+=$(gcloud compute instances list --format="value(networkInterfaces[0].networkIP)" --filter="name=( '$INSTANCE' )")
     COREMEMBERS+=":6000,"
   done
+  echo COREMEMBERS1: $COREMEMBERS
   COREMEMBERS=$${COREMEMBERS::-1}
-  echo COREMEMBERS: $COREMEMBERS
-  
+  echo COREMEMBERS2: $COREMEMBERS
+
   sed -i "s/#dbms.cluster.endpoints=localhost:6000,localhost:6001,localhost:6002/dbms.cluster.endpoints=$COREMEMBERS/g" /etc/neo4j/neo4j.conf
 fi
 
