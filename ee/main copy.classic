@@ -66,33 +66,34 @@ resource "google_compute_region_instance_group_manager" "neo4j" {
 ####### Load Balancer
 ##########################################
 
-resource "google_compute_region_health_check" "neo4j" {
+resource "google_compute_health_check" "neo4j" {
   name = "${var.goog_cm_deployment_name}"
   tcp_health_check {
     port = "7474"
   }
 }
 
-resource "google_compute_region_backend_service" "neo4j" {
+resource "google_compute_backend_service" "neo4j" {
   name                  = "${var.goog_cm_deployment_name}"
   load_balancing_scheme = "EXTERNAL"
   protocol              = "TCP"
-  health_checks         = [google_compute_region_health_check.neo4j.id]
+  health_checks         = [google_compute_health_check.neo4j.id]
 
   backend {
     group           = google_compute_region_instance_group_manager.neo4j.instance_group
     balancing_mode  = "CONNECTION"
+    max_connections_per_instance = 1000
   }
 }
 
 resource "google_compute_target_tcp_proxy" "neo4j_http" {
   name            = "${var.goog_cm_deployment_name}-tcp-proxy-http"
-  backend_service = google_compute_region_backend_service.neo4j.id
+  backend_service = google_compute_backend_service.neo4j.id
 }
 
 resource "google_compute_target_tcp_proxy" "neo4j_bolt" {
   name            = "${var.goog_cm_deployment_name}-tcp-proxy-bolt"
-  backend_service = google_compute_region_backend_service.neo4j.id
+  backend_service = google_compute_backend_service.neo4j.id
 }
 
 resource "google_compute_global_forwarding_rule" "neo4j_http" {
