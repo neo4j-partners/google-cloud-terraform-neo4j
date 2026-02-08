@@ -66,7 +66,7 @@ spec:
       - name: source_image
         description: The image name for the disk for the VM instance.
         varType: string
-        defaultValue: projects/neo4j-mp-public/global/images/neo4j-enterprise-edition
+        defaultValue: projects/neo4j-mp-public/global/images/neo4j-enterprise-edition-v20260126
     outputs:
       - name: neo4j_http_url
         description: URL to access Neo4j Browser via load balancer

@@ -42,7 +42,7 @@ spec:
       - name: source_image
         description: The image name for the disk for the VM instance.
         varType: string
-        defaultValue: projects/neo4j-mp-public/global/images/neo4j-community-edition
+        defaultValue: projects/neo4j-mp-public/global/images/neo4j-community-edition-v20260126
       - name: zone
         description: The zone for the solution to be deployed.
         varType: string

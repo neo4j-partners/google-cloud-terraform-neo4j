@@ -20,7 +20,7 @@ spec:
           title: Image version
           enumValueLabels:
             - label: neo4j-community-edition
-              value: projects/neo4j-mp-public/global/images/neo4j-community-edition
+              value: projects/neo4j-mp-public/global/images/neo4j-community-edition-v20260126
           xGoogleProperty:
             type: ET_GCE_DISK_IMAGE
         zone:
