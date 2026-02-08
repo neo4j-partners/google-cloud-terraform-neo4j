@@ -2,11 +2,19 @@ provider "google" {
   project = var.project_id
 }
 
-resource "google_service_account" "default" {
-  account_id   = "service-account-id"
-  display_name = "Service Account"
+resource "google_service_account" "neo4j" {
+  account_id   = "neo4j-service-account"
+  display_name = "Neo4j Service Account"
 }
 
+data "google_iam_policy" "neo4j" {
+  binding {
+    role = "roles/compute.instanceAdmin"
+    members = [
+      "serviceAccount:${google_service_account.neo4j.email}"
+    ]
+  }
+}
 resource "google_compute_instance_template" "neo4j" {
   name         = "${var.goog_cm_deployment_name}-instance-template"
   machine_type = var.machine_type
@@ -31,7 +39,7 @@ resource "google_compute_instance_template" "neo4j" {
   })
 
    service_account {
-    email  = google_service_account.default.email
+    email  = google_service_account.neo4j.email
     scopes = ["cloud-platform"]
   }
 }
