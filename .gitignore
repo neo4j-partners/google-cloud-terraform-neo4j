@@ -1,2 +1,5 @@
 marketplace/ce-archive.zip
 marketplace/ee-archive.zip
+
+.terraform
+.terraform.lock.hcl
