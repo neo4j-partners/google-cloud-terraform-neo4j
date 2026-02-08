@@ -30,7 +30,7 @@ spec:
             version: v20260126
       - software:
         - title: Neo4j Enterprise Edition (BYOL)
-          version: "latest"
+          version: latest
   content: {}
   interfaces:
     variables:
