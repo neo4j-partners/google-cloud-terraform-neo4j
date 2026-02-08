@@ -66,7 +66,7 @@ resource "google_compute_region_instance_group_manager" "neo4j" {
 ####### Load Balancer
 ##########################################
 
-resource "google_compute_region_backend_service" "neo4j" {
+resource "google_compute_backend_service" "neo4j" {
   name                  = "${var.goog_cm_deployment_name}"
   health_checks         = [google_compute_region_health_check.neo4j.id]
   load_balancing_scheme = "EXTERNAL"
@@ -85,14 +85,14 @@ resource "google_compute_region_health_check" "neo4j" {
   }
 }
 
-resource "google_compute_target_tcp_proxy" "neo4j_http" {
+resource "google_compute_region_target_tcp_proxy" "neo4j_http" {
   name            = "${var.goog_cm_deployment_name}-tcp-proxy-http"
-  backend_service = google_compute_region_backend_service.neo4j.id
+  backend_service = google_compute_backend_service.neo4j.id
 }
 
-resource "google_compute_target_tcp_proxy" "neo4j_bolt" {
+resource "google_compute_region_target_tcp_proxy" "neo4j_bolt" {
   name            = "${var.goog_cm_deployment_name}-tcp-proxy-bolt"
-  backend_service = google_compute_region_backend_service.neo4j.id
+  backend_service = google_compute_backend_service.neo4j.id
 }
 
 resource "google_compute_global_forwarding_rule" "neo4j_http" {
@@ -100,7 +100,7 @@ resource "google_compute_global_forwarding_rule" "neo4j_http" {
   ip_protocol           = "TCP"
   load_balancing_scheme = "EXTERNAL"
   port_range            = "7474"
-  target                = google_compute_target_tcp_proxy.neo4j_http.id
+  target                = google_compute_region_target_tcp_proxy.neo4j_http.id
   ip_address            = google_compute_global_address.neo4j.id
 }
 
@@ -109,7 +109,7 @@ resource "google_compute_global_forwarding_rule" "neo4j_bolt" {
   ip_protocol           = "TCP"
   load_balancing_scheme = "EXTERNAL"
   port_range            = "7687"
-  target                = google_compute_target_tcp_proxy.neo4j_bolt.id
+  target                = google_compute_region_target_tcp_proxy.neo4j_bolt.id
   ip_address            = google_compute_global_address.neo4j.id
 }
 
