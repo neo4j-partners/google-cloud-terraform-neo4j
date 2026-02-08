@@ -15,6 +15,14 @@ spec:
         goog_cm_deployment_name:
           name: goog_cm_deployment_name
           title: Deployment Name
+        source_image:
+          name: source_image
+          title: Image version
+          enumValueLabels:
+            - label: neo4j-enterprise-edition
+              value: projects/neo4j-mp-public/global/images/neo4j-enterprise-edition-v20260126
+          xGoogleProperty:
+            type: ET_GCE_DISK_IMAGE
         region:
           name: region
           title: Region
@@ -54,11 +62,3 @@ spec:
           title: Disk size in GB
           max: 10000
           section: storage
-        source_image:
-          name: source_image
-          title: Image version
-          enumValueLabels:
-            - label: neo4j-enterprise-edition
-              value: projects/neo4j-mp-public/global/images/neo4j-enterprise-edition-v20260126
-          xGoogleProperty:
-            type: ET_GCE_DISK_IMAGE

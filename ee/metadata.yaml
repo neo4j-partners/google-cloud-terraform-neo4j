@@ -29,7 +29,7 @@ spec:
           - title: centos-stream-10
             version: v20260126
       - software:
-        - title: Neo4j Enterprise Edition (BYOL)
+        - title: Neo4j Enterprise Edition BYOL
           version: latest
   content: {}
   interfaces:
@@ -42,6 +42,10 @@ spec:
         description: The name of the deployment and VM instances.
         varType: string
         required: true
+      - name: source_image
+        description: The image name for the disk for the VM instance.
+        varType: string
+        defaultValue: projects/neo4j-mp-public/global/images/neo4j-enterprise-edition-v20260126
       - name: region
         description: The region for the solution to be deployed.
         varType: string
@@ -66,10 +70,6 @@ spec:
         description: Size of the data disk in GB
         varType: integer
         defaultValue: 100
-      - name: source_image
-        description: The image name for the disk for the VM instance.
-        varType: string
-        defaultValue: projects/neo4j-mp-public/global/images/neo4j-enterprise-edition-v20260126
     outputs:
       - name: neo4j_http_url
         description: URL to access Neo4j Browser via load balancer
