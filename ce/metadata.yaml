@@ -28,9 +28,9 @@ spec:
         software:
           - title: centos-stream-10
             version: v20260126
-          - software:
-            - title: Neo4j Community Edition
-              version: "latest"
+      - software:
+        - title: Neo4j Community Edition
+          version: "latest"
   content: {}
   interfaces:
     variables:
