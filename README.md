@@ -12,12 +12,13 @@ The GCP Marketplace listings use HashiCorp Terraform IaC tool to deploy Neo4j Co
 
 HashiCorp Terraform is an infrastructure deployment module, which automates the creation and management of Google Cloud resources.
 It takes several parameters as inputs, deploys a set of cloud resources, and provides outputs that can be used to connect to a Neo4j DBMS.
+The  Neo4j Terraform deployment module always installs the latest available version.
 
 The repository structure is as follows:
 
 ```
 google-cloud-terraform-neo4j/
-├── ce/                           # Terraform modules
+├── ce/                           # Community edition module
 │   ├── main.tf                   # Main module configuration
 │   ├── marketplace_test.tfvars   # Test configurations
 |   ├── metadata.display.yaml     # GCP Marketplace display metadata
@@ -27,7 +28,7 @@ google-cloud-terraform-neo4j/
 │   ├── terraform.tfvars          # Environment variables file
 │   ├── variables.tf              # Module variables
 │   └── versions.tf               # Module provider requirements
-├── ee/                           # Terraform modules
+├── ee/                           # Enterprise edition module
 │   ├── main.tf                   # Main module configuration
 │   ├── marketplace_test.tfvars   # Test configurations
 |   ├── metadata.display.yaml     # GCP Marketplace display metadata
