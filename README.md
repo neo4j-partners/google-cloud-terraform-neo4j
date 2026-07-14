@@ -41,7 +41,7 @@ google-cloud-terraform-neo4j/
 ├── marketplace/
 |   ├── logo.png                  # Logo for GCP Marketplace
 |   ├── README.md                 # Notes for Neo4j employees who want to update the listings
-|   └── updateArchive.sh          # Update script
+|   └── updateArchive.sh          # Script that updates the listings
 ├── LICENSE                       # TERMS AND CONDITIONS FOR USE, REPRODUCTION, AND DISTRIBUTION
 └── README.md                     # This readme
 ```
@@ -90,7 +90,7 @@ To obtain a valid license for Bloom reach out to your Neo4j account representati
 4. Agree on terms to deploy the product.
 5. Click **Deploy**.
 6. Configure the deployment parameters.
-4. Review and click **Deploy**.
+7. Review and click **Deploy**.
 
 ## Use the module directly
 
